@@ -4,9 +4,32 @@
 
 body {
     background-color: #f4f9f4;
+    margin: 0;
 }
 
 /* //WELCOME // */
+
+.welcome-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-header-survivor-logo {
+    width: 20%;
+}
+
+.welcome-icons-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.welcome-header-search-icon,
+.welcome-header-login-icon,
+.welcome-header-logout-icon {
+    width: 20%;
+}
 
 .welcome-container {
     display: flex;
@@ -14,11 +37,6 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-}
-
-.survivor-logo {
-    width: 30%;
-    margin-top: 30px;
 }
 
 /* // APP // */

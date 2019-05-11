@@ -64,7 +64,7 @@ app.use(express.json());
 
 ////////////////////WELCOME ROUTE////////////////////
 
-app.get("/welcome", (req, res) => {
+app.get(["/welcome", "/register", "/login"], (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
     } else {
@@ -72,9 +72,9 @@ app.get("/welcome", (req, res) => {
     }
 });
 
-////////////////////REGISTRATION ROUTE////////////////////
+////////////////////REGISTER ROUTE////////////////////
 
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
     password
         .hashPassword(req.body.password)
         .then(hashedPassword => {
@@ -82,6 +82,8 @@ app.post("/register", (req, res) => {
                 req.body.firstname,
                 req.body.lastname,
                 req.body.email,
+                req.body.city,
+                req.body.country,
                 hashedPassword,
                 new Date()
             );
@@ -96,7 +98,7 @@ app.post("/register", (req, res) => {
 });
 ////////////////////LOGIN ROUTE////////////////////
 
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
     db.getUser(req.body.email).then(user => {
         if (user == null) {
             return res.status(400).json({ error: "user not found" });
@@ -118,7 +120,7 @@ app.post("/login", (req, res) => {
 
 ////////////////////LOGOUT ROUTE////////////////////
 
-app.post("/logout", (req, res) => {
+app.post("/api/logout", (req, res) => {
     req.session = null;
     res.redirect("/register");
 });

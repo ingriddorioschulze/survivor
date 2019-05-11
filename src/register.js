@@ -15,6 +15,8 @@ export default class Register extends React.Component {
             .post("/register", {
                 firstname: e.target.firstname.value,
                 lastname: e.target.lastname.value,
+                city: e.target.city.value,
+                country: e.target.country.value,
                 email: e.target.email.value,
                 password: e.target.password.value
             })
@@ -55,6 +57,20 @@ export default class Register extends React.Component {
                                 className="register-lastname"
                                 type="text"
                                 placeholder="last name"
+                                required
+                            />
+                            <input
+                                name="city"
+                                className="register-city"
+                                type="text"
+                                placeholder="city"
+                                required
+                            />
+                            <input
+                                name="country"
+                                className="register-country"
+                                type="text"
+                                placeholder="country"
                                 required
                             />
                             <input

@@ -24,7 +24,7 @@ export default class App extends React.Component {
                     <header className="app-header" />
                     <main />
                     <footer className="copyright">
-                        © 2019 survivor by Ingrid do Rio Schulze
+                        © 2019 S U R V I V O R by Ingrid do Rio Schulze
                     </footer>
                 </div>
             </BrowserRouter>

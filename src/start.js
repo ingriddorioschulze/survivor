@@ -5,7 +5,11 @@ import App from "./app";
 
 let elem;
 
-if (location.pathname == "/welcome") {
+if (
+    location.pathname == "/welcome" ||
+    location.pathname == "/register" ||
+    location.pathname == "/login"
+) {
     elem = <Welcome />;
 } else {
     elem = <App />;
