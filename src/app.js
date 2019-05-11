@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "./axios";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import Garden from "./garden";
+import Plants from "./plants";
+
 // import SearchBox from "./searchbox";
 
 export default class App extends React.Component {
@@ -22,9 +25,12 @@ export default class App extends React.Component {
             <BrowserRouter>
                 <div className="app">
                     <header className="app-header" />
-                    <main />
+                    <main>
+                        <Route path="/garden" component={Garden} />
+                        <Route path="/plants" component={Plants} />
+                    </main>
                     <footer className="copyright">
-                        © 2019 S U R V I V O R by Ingrid do Rio Schulze
+                        © 2019 Survivor by Ingrid do Rio Schulze
                     </footer>
                 </div>
             </BrowserRouter>

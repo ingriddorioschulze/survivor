@@ -74,16 +74,16 @@ app.get(["/welcome", "/register", "/login"], (req, res) => {
 
 ////////////////////REGISTER ROUTE////////////////////
 
-app.post("/api/register", (req, res) => {
+app.post("/api/register", (req, res, next) => {
     password
         .hashPassword(req.body.password)
         .then(hashedPassword => {
             return db.registerUser(
                 req.body.firstname,
                 req.body.lastname,
-                req.body.email,
                 req.body.city,
                 req.body.country,
+                req.body.email,
                 hashedPassword,
                 new Date()
             );
@@ -92,9 +92,7 @@ app.post("/api/register", (req, res) => {
             req.session.userId = userId;
             res.redirect("/");
         })
-        .catch(() => {
-            res.sendStatus(500);
-        });
+        .catch(next);
 });
 ////////////////////LOGIN ROUTE////////////////////
 
@@ -164,6 +162,43 @@ function loggedIn(req, res, next) {
 // app.get("/api/search", loggedIn, (req, res) => {
 //     db.search(req.query.text).then(results => res.json(results));
 // });
+
+// ////////////////////ADD GARDEN ROUTE////////////////////
+
+app.post("/api/garden", loggedIn, (req, res, next) => {
+    return db
+        .addGarden(
+            req.body.gardenName,
+            req.body.gardenLocation,
+            req.body.gardenType
+        )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(next);
+});
+
+// ////////////////////ADD PLANTS ROUTE////////////////////
+
+app.post("/api/plants", loggedIn, (req, res, next) => {
+    return db
+        .addPlant(
+            req.body.plantName,
+            req.body.plantScientificName,
+            req.body.date,
+            req.body.plantPicture,
+            req.body.water,
+            req.body.soil,
+            req.body.pot,
+            req.body.fertilizer,
+            req.body.light,
+            new Date()
+        )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(next);
+});
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

@@ -16,7 +16,7 @@ exports.registerUser = function registerUser(
     time
 ) {
     const q = `INSERT INTO users (first_name, last_name, city, country, email_address, password, time) 
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
     const params = [
         first_name,
         last_name,
@@ -42,5 +42,50 @@ exports.getUser = function(email_address) {
         } else {
             return result.rows[0];
         }
+    });
+};
+exports.addGarden = function addGarden(
+    garden_name,
+    garden_location,
+    garden_type,
+    time
+) {
+    const q = `INSERT INTO garden (garden_name, garden_location, garden_type, time)
+VALUES ($1, $2, $3, $4) RETURNING id`;
+    const params = [garden_name, garden_location, garden_type, time];
+    return db.query(q, params).then(result => {
+        return result.rows[0].id;
+    });
+};
+
+exports.addPlant = function addPlant(
+    plant_name,
+    plant_scientific_name,
+    date,
+    plant_picture,
+    water,
+    soil,
+    pot,
+    fertilizer,
+    light,
+    time
+) {
+    const q = `INSERT INTO plants (plant_name, plant_scientific_name, 
+        date, plant_picture, water, soil, pot, fertilizer, light, time) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+    const params = [
+        plant_name,
+        plant_scientific_name,
+        date,
+        plant_picture,
+        water,
+        soil,
+        pot,
+        fertilizer,
+        light,
+        time
+    ];
+    return db.query(q, params).then(result => {
+        return result.rows[0].id;
     });
 };

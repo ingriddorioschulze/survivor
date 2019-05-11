@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import Register from "./register";
+import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
 import Login from "./login";
 
 class Welcome extends React.Component {
@@ -9,45 +8,47 @@ class Welcome extends React.Component {
             <BrowserRouter>
                 <div className="app">
                     <header className="welcome-header">
-                        <Link to="/welcome">
+                        <NavLink to="/welcome">
                             <img
                                 className="welcome-header-survivor-logo"
                                 src="/survivor.png"
                                 alt="survivor logo"
                             />
-                        </Link>
+                        </NavLink>
                         <div className="welcome-icons-container">
-                            <Link to="/search">
+                            <NavLink to="/search">
                                 <img
                                     className="welcome-header-search-icon"
                                     src="/search-icon.png"
                                     alt="search icon"
                                 />
-                            </Link>
-                            <Link to="/login">
+                            </NavLink>
+                            <NavLink to="/login">
                                 <img
                                     className="welcome-header-login-icon"
                                     src="/login-icon.png"
                                     alt="login icon"
                                 />
-                            </Link>
-                            <Link to="logout">
+                            </NavLink>
+                            <NavLink to="logout">
                                 <img
                                     className="welcome-header-logout-icon"
                                     src="/logout-icon.png"
                                     alt="login icon"
                                 />
-                            </Link>
+                            </NavLink>
                         </div>
                     </header>
                     <main>
                         <div className="welcome-container">
-                            <Route path="/register" component={Register} />
+                            <div className="welcome-text">
+                                I'm gonna make it
+                            </div>
                             <Route path="/login" component={Login} />
                         </div>
                     </main>
                     <footer className="copyright">
-                        © 2019 survivor by Ingrid do Rio Schulze
+                        © 2019 Survivor by Ingrid do Rio Schulze
                     </footer>
                 </div>
             </BrowserRouter>

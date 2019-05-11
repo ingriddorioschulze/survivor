@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import Register from "./register";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export default class Login extends React.Component {
     submit(e) {
         e.preventDefault();
         axios
-            .post("/login", {
+            .post("/api/login", {
                 email: e.target.email.value,
                 password: e.target.password.value
             })
@@ -34,9 +35,10 @@ export default class Login extends React.Component {
         }
 
         return (
-            <React.Fragment>
-                {errorDiv}
+            <div className="registration-login-container">
+                <Register />
                 <div className="login-area">
+                    {errorDiv}
                     <div className="login-container">
                         <div className="login-title">login</div>
                         <form className="login-form" onSubmit={this.submit}>
@@ -63,7 +65,7 @@ export default class Login extends React.Component {
                         </form>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

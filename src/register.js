@@ -12,7 +12,7 @@ export default class Register extends React.Component {
     submit(e) {
         e.preventDefault();
         axios
-            .post("/register", {
+            .post("/api/register", {
                 firstname: e.target.firstname.value,
                 lastname: e.target.lastname.value,
                 city: e.target.city.value,
