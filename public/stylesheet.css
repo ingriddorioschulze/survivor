@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f9f4;
+}
+
+/* //WELCOME // */
+
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.survivor-logo {
+    width: 30%;
+    margin-top: 30px;
+}
+
+/* // APP // */
+
+/* //FOOTER CONTAINER// */
+
+main {
+    min-height: calc(100vh - 135px);
+}
+
+.copyright {
+    display: flex;
+    background-color: #616161;
+    left: 0;
+    bottom: 0;
+    height: 35px;
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #f4f9f4;
+}
