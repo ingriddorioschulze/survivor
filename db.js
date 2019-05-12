@@ -44,16 +44,10 @@ exports.getUser = function(email_address) {
         }
     });
 };
-exports.addGarden = function addGarden(
-    garden_name,
-    garden_location,
-    garden_type,
-    users_id,
-    time
-) {
-    const q = `INSERT INTO garden (garden_name, garden_location, garden_type, users_id, time)
-VALUES ($1, $2, $3, $4, $5) RETURNING id`;
-    const params = [garden_name, garden_location, garden_type, users_id, time];
+exports.createGarden = function addGarden(name, user_id, time) {
+    const q = `INSERT INTO garden (name, user_id, time)
+VALUES ($1, $2, $3) RETURNING id`;
+    const params = [name, user_id, time];
     return db.query(q, params).then(result => {
         return result.rows[0].id;
     });
@@ -97,7 +91,7 @@ exports.addPlant = function addPlant(
 
 //all the gardens//
 exports.getGardens = function(user_id) {
-    const q = `SELECT id, garden_name, garden_location, garden_type, time
+    const q = `SELECT id, name, time
     FROM garden
     WHERE user_id = $1`;
     const params = [user_id];

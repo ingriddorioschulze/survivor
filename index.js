@@ -163,19 +163,19 @@ function loggedIn(req, res, next) {
 //     db.search(req.query.text).then(results => res.json(results));
 // });
 
-// ////////////////////ADD GARDEN ROUTE////////////////////
+// ////////////////////GET GARDENS ROUTE////////////////////
+
+app.get("/api/gardens", loggedIn, (req, res) => {
+    db.getGardens(req.session.userId).then(gardens => res.json(gardens));
+});
+
+// ////////////////////CREATE GARDEN ROUTE////////////////////
 
 app.post("/api/garden", loggedIn, (req, res, next) => {
     return db
-        .addGarden(
-            req.body.gardenName,
-            req.body.gardenLocation,
-            req.body.gardenType,
-            req.session.userId,
-            new Date()
-        )
-        .then(data => {
-            res.json(data);
+        .createGarden(req.body.name, req.session.userId, new Date())
+        .then(id => {
+            res.json({ id: id });
         })
         .catch(next);
 });

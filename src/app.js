@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "./axios";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import Garden from "./garden";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CreateGarden from "./creategarden";
 import Plants from "./plants";
-
-// import SearchBox from "./searchbox";
+import Garden from "./garden";
+import GardenList from "./gardenlist";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -26,8 +26,14 @@ export default class App extends React.Component {
                 <div className="app">
                     <header className="app-header" />
                     <main>
-                        <Route exact path="/garden" component={Garden} />
-                        <Route path="/garden/:id" component={Plants} />
+                        <Switch>
+                            <Route exact path="/" component={GardenList} />
+                            <Route
+                                path="/garden/new"
+                                component={CreateGarden}
+                            />
+                            <Route path="/garden/:id" component={Garden} />
+                        </Switch>
                     </main>
                     <footer className="copyright">
                         © 2019 Survivor by Ingrid do Rio Schulze
