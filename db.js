@@ -6,7 +6,7 @@ const dbUrl =
 
 const db = spicedPg(dbUrl);
 
-exports.registerUser = function registerUser(
+exports.registerUser = function(
     first_name,
     last_name,
     city,
@@ -44,7 +44,7 @@ exports.getUser = function(email_address) {
         }
     });
 };
-exports.createGarden = function addGarden(name, user_id, time) {
+exports.createGarden = function(name, user_id, time) {
     const q = `INSERT INTO garden (name, user_id, time)
 VALUES ($1, $2, $3) RETURNING id`;
     const params = [name, user_id, time];
@@ -53,17 +53,18 @@ VALUES ($1, $2, $3) RETURNING id`;
     });
 };
 
-exports.createPlant = function addPlant(
+exports.createPlant = function(
     user_id,
     garden_id,
     name,
     picture,
     notes,
+    water_days,
     time
 ) {
-    const q = `INSERT INTO plants (user_id, garden_id, name, picture, notes, time) 
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
-    const params = [user_id, garden_id, name, picture, notes, time];
+    const q = `INSERT INTO plants (user_id, garden_id, name, picture, notes, water_days,time) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
+    const params = [user_id, garden_id, name, picture, notes, water_days, time];
     return db.query(q, params).then(result => {
         return result.rows[0].id;
     });
@@ -99,5 +100,14 @@ exports.getPlantsForGarden = function(garden_id) {
     const params = [garden_id];
     return db.query(q, params).then(result => {
         return result.rows;
+    });
+};
+
+exports.createWatering = function(plant_id, time_due) {
+    const q = `INSERT INTO waterings (plant_id, done, time_due)
+    VALUES ($1, false, $2) RETURNING id`;
+    const params = [plant_id, time_due];
+    return db.query(q, params).then(result => {
+        return result.rows[0].id;
     });
 };

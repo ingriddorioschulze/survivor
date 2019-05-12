@@ -7,5 +7,6 @@ CREATE TABLE  plants (
     name VARCHAR(250) NOT NULL,
     picture TEXT,
     notes TEXT,
+    water_days SMALLINT NOT NULL,
     time TIMESTAMPTZ
 );

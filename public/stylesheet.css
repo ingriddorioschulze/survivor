@@ -8,30 +8,32 @@ body {
     font-family: Pompiere;
 }
 
-/* //WELCOME // */
+/* //HEADER // */
 
-.welcome-header {
+.header {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.welcome-header-survivor-logo {
+.header-survivor-logo {
     width: 300px;
 }
 
-.welcome-icons-container {
+.header-icons-container {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
 }
 
-.welcome-header-search-icon,
-.welcome-header-login-icon,
-.welcome-header-logout-icon {
+.header-search-icon,
+.header-login-icon,
+.header-logout-icon {
     width: 35px;
     margin: 25px;
 }
+
+/* //WELCOME // */
 
 .welcome-container {
     display: flex;

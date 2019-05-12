@@ -7,33 +7,26 @@ class Welcome extends React.Component {
         return (
             <BrowserRouter>
                 <div className="app">
-                    <header className="welcome-header">
+                    <header className="header">
                         <NavLink to="/welcome">
                             <img
-                                className="welcome-header-survivor-logo"
+                                className="header-survivor-logo"
                                 src="/survivor.png"
                                 alt="survivor logo"
                             />
                         </NavLink>
-                        <div className="welcome-icons-container">
+                        <div className="header-icons-container">
                             <NavLink to="/search">
                                 <img
-                                    className="welcome-header-search-icon"
+                                    className="header-search-icon"
                                     src="/search-icon.png"
                                     alt="search icon"
                                 />
                             </NavLink>
                             <NavLink to="/login">
                                 <img
-                                    className="welcome-header-login-icon"
+                                    className="header-login-icon"
                                     src="/login-icon.png"
-                                    alt="login icon"
-                                />
-                            </NavLink>
-                            <NavLink to="logout">
-                                <img
-                                    className="welcome-header-logout-icon"
-                                    src="/logout-icon.png"
                                     alt="login icon"
                                 />
                             </NavLink>

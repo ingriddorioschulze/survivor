@@ -8,6 +8,7 @@ const path = require("path");
 const password = require("./password");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
+const moment = require("moment");
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -131,32 +132,6 @@ function loggedIn(req, res, next) {
     }
 }
 
-// ////////////////////UPLOAD PICTURE ROUTE////////////////////
-
-// app.post(
-//     "/uploadProfilePicture",
-//     loggedIn,
-//     uploader.single("picture"),
-//     (req, res) => {
-//         s3.uploadImage(req.file.path, req.file.filename)
-//             .then(url => {
-//                 return db
-//                     .updateProfilePicture(url, req.session.userId)
-//                     .then(() => {
-//                         res.json({
-//                             url: url
-//                         });
-//                     });
-//             })
-//             .catch(error => {
-//                 console.error(error);
-//                 res.status(500).json({
-//                     message: "Upload failed."
-//                 });
-//             });
-//     }
-// );
-
 // ////////////////////SEARCH ROUTE////////////////////
 
 // app.get("/api/search", loggedIn, (req, res) => {
@@ -189,7 +164,7 @@ app.post("/api/garden", loggedIn, (req, res, next) => {
         .catch(next);
 });
 
-// ////////////////////ADD PLANTS ROUTE////////////////////
+// ////////////////////CREATE PLANTS ROUTE////////////////////
 
 app.post(
     "/api/plants",
@@ -204,14 +179,20 @@ app.post(
                     req.body.name,
                     url,
                     req.body.notes,
+                    req.body.xDays,
                     new Date()
                 )
                 .then(id => {
-                    res.json({
-                        id: id,
-                        name: req.body.name,
-                        notes: req.body.notes,
-                        picture: url
+                    const timeDue = moment()
+                        .startOf("day")
+                        .add(req.body.xDays, "days");
+                    return db.createWatering(id, timeDue.toDate()).then(() => {
+                        res.json({
+                            id: id,
+                            name: req.body.name,
+                            notes: req.body.notes,
+                            picture: url
+                        });
                     });
                 })
                 .catch(next);

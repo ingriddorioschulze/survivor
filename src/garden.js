@@ -14,6 +14,15 @@ class AddPlant extends React.Component {
                 <input type="text" name="name" />
                 <textarea name="notes" />
                 <input type="file" name="picture" />
+                <select name="xDays">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
                 <button>submit</button>
             </form>
         );
@@ -28,6 +37,7 @@ class AddPlant extends React.Component {
         formData.append("name", e.target.name.value);
         formData.append("notes", e.target.notes.value);
         formData.append("picture", e.target.picture.files[0]);
+        formData.append("xDays", e.target.xDays.value);
 
         axios
             .post("/api/plants", formData, {
