@@ -2,9 +2,9 @@ const knox = require("knox-s3");
 let secrets;
 
 if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
+    secrets = process.env;
 } else {
-    secrets = require("./secrets"); // secrets.json is in .gitignore
+    secrets = require("./secrets");
 }
 const client = knox.createClient({
     key: secrets.AWS_KEY,
@@ -17,7 +17,7 @@ exports.uploadImage = function(filepath, filename) {
     return new Promise((resolve, reject) => {
         client.putFile(
             filepath,
-            `genau/${filename}`,
+            `survivor/${filename}`,
             {
                 "x-amz-acl": "public-read"
             },
@@ -28,7 +28,7 @@ exports.uploadImage = function(filepath, filename) {
                     const wasSuccessful = res.statusCode == 200;
                     if (wasSuccessful) {
                         resolve(
-                            `https://s3-eu-west-1.amazonaws.com/retratar/genau/${filename}`
+                            `https://s3-eu-west-1.amazonaws.com/retratar/survivor/${filename}`
                         );
                     } else {
                         reject({

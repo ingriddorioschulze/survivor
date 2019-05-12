@@ -11,17 +11,25 @@ export default class Plants extends React.Component {
     submit(e) {
         e.preventDefault();
         e.persist();
+        const formData = new FormData();
+        formData.append("plantName", e.target.plantName.value);
+        formData.append(
+            "plantScientificName",
+            e.target.plantScientificName.value
+        );
+        formData.append("date", e.target.date.value);
+        formData.append("plantPicture", e.target.plantPicture.files[0]);
+        formData.append("water", e.target.water.value);
+        formData.append("soil", e.target.soil.value);
+        formData.append("pot", e.target.pot.value);
+        formData.append("fertilizer", e.target.fertilizer.value);
+        formData.append("light", e.target.light.value);
+
         axios
-            .post("/api/plants", {
-                plantName: e.target.plantName.value,
-                plantScientificName: e.target.plantScientificName.value,
-                date: e.target.date.value,
-                plantPicture: e.target.plantPicture.value,
-                water: e.target.water.value,
-                soil: e.target.soil.value,
-                pot: e.target.pot.value,
-                fertilizer: e.target.fertilizer.value,
-                light: e.target.light.value
+            .post("/api/plants", formData, {
+                headers: {
+                    "content-type": "multipart/form-data"
+                }
             })
             .then(() => e.target.reset());
     }
@@ -52,10 +60,18 @@ export default class Plants extends React.Component {
                             required
                         />
                         <input
+                            className="plants-plant-picture-input"
                             name="plantPicture"
-                            className="plants-plant-picture"
-                            placeholder="picture"
+                            id="file"
+                            type="file"
+                            accept="image/*"
                         />
+                        <label htmlFor="file">
+                            <span className="plants-choose-file">
+                                choose a file
+                            </span>
+                        </label>
+
                         <input
                             name="water"
                             className="plants-plant-water"

@@ -180,25 +180,32 @@ app.post("/api/garden", loggedIn, (req, res, next) => {
 
 // ////////////////////ADD PLANTS ROUTE////////////////////
 
-app.post("/api/plants", loggedIn, (req, res, next) => {
-    return db
-        .addPlant(
-            req.body.plantName,
-            req.body.plantScientificName,
-            req.body.date,
-            req.body.plantPicture,
-            req.body.water,
-            req.body.soil,
-            req.body.pot,
-            req.body.fertilizer,
-            req.body.light,
-            new Date()
-        )
-        .then(data => {
-            res.json(data);
-        })
-        .catch(next);
-});
+app.post(
+    "/api/plants",
+    loggedIn,
+    uploader.single("plantPicture"),
+    (req, res, next) => {
+        s3.uploadImage(req.file.path, req.file.filename).then(url => {
+            return db
+                .addPlant(
+                    req.body.plantName,
+                    req.body.plantScientificName,
+                    req.body.date,
+                    url,
+                    req.body.water,
+                    req.body.soil,
+                    req.body.pot,
+                    req.body.fertilizer,
+                    req.body.light,
+                    new Date()
+                )
+                .then(() => {
+                    res.sendStatus(200);
+                })
+                .catch(next);
+        });
+    }
+);
 
 ////////////////////EVERYTHING ROUTE////////////////////
 
