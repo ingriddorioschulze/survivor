@@ -12,6 +12,7 @@ export default class Plants extends React.Component {
         e.preventDefault();
         e.persist();
         const formData = new FormData();
+        formData.append("gardenId", this.props.match.params.id);
         formData.append("plantName", e.target.plantName.value);
         formData.append(
             "plantScientificName",

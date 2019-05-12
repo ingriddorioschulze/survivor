@@ -170,7 +170,9 @@ app.post("/api/garden", loggedIn, (req, res, next) => {
         .addGarden(
             req.body.gardenName,
             req.body.gardenLocation,
-            req.body.gardenType
+            req.body.gardenType,
+            req.session.userId,
+            new Date()
         )
         .then(data => {
             res.json(data);
@@ -188,6 +190,8 @@ app.post(
         s3.uploadImage(req.file.path, req.file.filename).then(url => {
             return db
                 .addPlant(
+                    req.session.userId,
+                    req.body.gardenId,
                     req.body.plantName,
                     req.body.plantScientificName,
                     req.body.date,
@@ -206,6 +210,9 @@ app.post(
         });
     }
 );
+
+// ////////////////////SHOW GARDEN ROUTE////////////////////
+// ////////////////////SHOW PLANTS ROUTE////////////////////
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

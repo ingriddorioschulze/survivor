@@ -48,17 +48,20 @@ exports.addGarden = function addGarden(
     garden_name,
     garden_location,
     garden_type,
+    users_id,
     time
 ) {
-    const q = `INSERT INTO garden (garden_name, garden_location, garden_type, time)
-VALUES ($1, $2, $3, $4) RETURNING id`;
-    const params = [garden_name, garden_location, garden_type, time];
+    const q = `INSERT INTO garden (garden_name, garden_location, garden_type, users_id, time)
+VALUES ($1, $2, $3, $4, $5) RETURNING id`;
+    const params = [garden_name, garden_location, garden_type, users_id, time];
     return db.query(q, params).then(result => {
         return result.rows[0].id;
     });
 };
 
 exports.addPlant = function addPlant(
+    users_id,
+    garden_id,
     plant_name,
     plant_scientific_name,
     date,
@@ -70,10 +73,12 @@ exports.addPlant = function addPlant(
     light,
     time
 ) {
-    const q = `INSERT INTO plants (plant_name, plant_scientific_name, 
+    const q = `INSERT INTO plants (users_id, garden_id, plant_name, plant_scientific_name, 
         date, plant_picture, water, soil, pot, fertilizer, light, time) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id`;
     const params = [
+        users_id,
+        garden_id,
         plant_name,
         plant_scientific_name,
         date,
@@ -87,5 +92,38 @@ exports.addPlant = function addPlant(
     ];
     return db.query(q, params).then(result => {
         return result.rows[0].id;
+    });
+};
+
+//all the gardens//
+exports.getGardens = function(user_id) {
+    const q = `SELECT id, garden_name, garden_location, garden_type, time
+    FROM garden
+    WHERE user_id = $1`;
+    const params = [user_id];
+    return db.query(q, params).then(result => {
+        return result.rows;
+    });
+};
+
+//one garden//
+exports.getGarden = function(id) {
+    const q = `SELECT garden_name, garden_location, garden_type, time
+    FROM garden 
+    WHERE id = $1`;
+    const params = [id];
+    return db.query(q, params).then(result => {
+        return result.rows[0];
+    });
+};
+
+exports.getPlantsForGarden = function(garden_id) {
+    const q = `SELECT plant_name, plant_scientific_name, 
+    date, plant_picture, water, soil, pot, fertilizer, light, time
+    FROM plants
+    WHERE garden_id = $1`;
+    const params = [garden_id];
+    return db.query(q, params).then(result => {
+        return result.rows;
     });
 };

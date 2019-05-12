@@ -26,8 +26,8 @@ export default class App extends React.Component {
                 <div className="app">
                     <header className="app-header" />
                     <main>
-                        <Route path="/garden" component={Garden} />
-                        <Route path="/plants" component={Plants} />
+                        <Route exact path="/garden" component={Garden} />
+                        <Route path="/garden/:id" component={Plants} />
                     </main>
                     <footer className="copyright">
                         © 2019 Survivor by Ingrid do Rio Schulze
