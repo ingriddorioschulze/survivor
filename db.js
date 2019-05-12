@@ -111,3 +111,27 @@ exports.createWatering = function(plant_id, time_due) {
         return result.rows[0].id;
     });
 };
+
+exports.getWaterings = function(user_id) {
+    const q = `SELECT waterings.id AS id, plants.name AS plant_name, garden.name AS garden_name, picture, plant_id, done, time_done, time_due
+    FROM waterings
+    JOIN plants ON plants.id = plant_id 
+    JOIN garden ON garden.id = plants.garden_id
+    WHERE plants.user_id = $1
+    AND done = false 
+    AND time_due <= date_trunc('day', now())`;
+    const params = [user_id];
+    return db.query(q, params).then(result => {
+        return result.rows;
+    });
+};
+
+exports.completeWatering = function(id) {
+    const q = `UPDATE waterings SET done = true, time_done = now()
+    WHERE id = $1
+    RETURNING time_done`;
+    const params = [id];
+    return db.query(q, params).then(result => {
+        return result.rows[0].id;
+    });
+};

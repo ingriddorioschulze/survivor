@@ -73,7 +73,8 @@ export default class Garden extends React.Component {
         const garden = { ...this.state.garden };
         garden.plants.unshift(plant);
         this.setState({
-            garden: garden
+            garden: garden,
+            showAddPlant: false
         });
     }
 

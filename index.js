@@ -200,6 +200,21 @@ app.post(
     }
 );
 
+// ////////////////////NOTIFICATION ROUTE////////////////////
+
+app.get("/api/waterings", loggedIn, (req, res) => {
+    db.getWaterings(req.session.userId).then(waterings => {
+        res.json(waterings);
+    });
+});
+
+// ////////////////////COMPLETE WATERING ROUTE////////////////////
+app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
+    db.completeWatering(req.params.id).then(completeWatering => {
+        res.json(completeWatering);
+    });
+});
+
 ////////////////////EVERYTHING ROUTE////////////////////
 
 app.get("*", (req, res) => {

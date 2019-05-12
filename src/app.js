@@ -4,11 +4,15 @@ import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import CreateGarden from "./creategarden";
 import Garden from "./garden";
 import GardenList from "./gardenlist";
+import Waterings from "./waterings";
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            waterings: []
+        };
+        this.completeWatering = this.completeWatering.bind(this);
     }
 
     logout() {
@@ -17,9 +21,29 @@ export default class App extends React.Component {
         });
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        axios.get("/api/waterings").then(({ data }) => {
+            this.setState({
+                waterings: data
+            });
+        });
+    }
+
+    completeWatering(id) {
+        axios.post(`/api/watering/${id}/complete`).then(() => {
+            this.setState({
+                waterings: this.state.waterings.filter(
+                    watering => watering.id !== id
+                )
+            });
+        });
+    }
 
     render() {
+        const wateringIconClasses = ["header-login-icon"];
+        if (this.state.waterings.length > 0) {
+            wateringIconClasses.push("has-waterings");
+        }
         return (
             <BrowserRouter>
                 <div className="app">
@@ -39,9 +63,10 @@ export default class App extends React.Component {
                                     alt="search icon"
                                 />
                             </NavLink>
-                            <NavLink to="/login">
+                            {/* //change icon, class// */}
+                            <NavLink to="/waterings">
                                 <img
-                                    className="header-login-icon"
+                                    className={wateringIconClasses.join(" ")}
                                     src="/login-icon.png"
                                     alt="login icon"
                                 />
@@ -63,6 +88,15 @@ export default class App extends React.Component {
                                 component={CreateGarden}
                             />
                             <Route path="/garden/:id" component={Garden} />
+                            <Route
+                                path="/waterings"
+                                render={() => (
+                                    <Waterings
+                                        waterings={this.state.waterings}
+                                        completeWatering={this.completeWatering}
+                                    />
+                                )}
+                            />
                         </Switch>
                     </main>
                     <footer className="copyright">

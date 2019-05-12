@@ -62,6 +62,10 @@ body {
     flex: 1;
 }
 
+.has-waterings {
+    background-color: red;
+}
+
 /* //FOOTER CONTAINER// */
 
 main {
