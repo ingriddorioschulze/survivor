@@ -169,6 +169,15 @@ app.get("/api/gardens", loggedIn, (req, res) => {
     db.getGardens(req.session.userId).then(gardens => res.json(gardens));
 });
 
+// ////////////////////SHOW GARDEN ROUTE////////////////////
+
+app.get("/api/garden/:id", loggedIn, (req, res) => {
+    Promise.all([
+        db.getGarden(req.params.id, req.session.userId),
+        db.getPlantsForGarden(req.params.id)
+    ]).then(([garden, plants]) => res.json({ ...garden, plants: plants }));
+});
+
 // ////////////////////CREATE GARDEN ROUTE////////////////////
 
 app.post("/api/garden", loggedIn, (req, res, next) => {
@@ -185,34 +194,30 @@ app.post("/api/garden", loggedIn, (req, res, next) => {
 app.post(
     "/api/plants",
     loggedIn,
-    uploader.single("plantPicture"),
+    uploader.single("picture"),
     (req, res, next) => {
         s3.uploadImage(req.file.path, req.file.filename).then(url => {
             return db
-                .addPlant(
+                .createPlant(
                     req.session.userId,
                     req.body.gardenId,
-                    req.body.plantName,
-                    req.body.plantScientificName,
-                    req.body.date,
+                    req.body.name,
                     url,
-                    req.body.water,
-                    req.body.soil,
-                    req.body.pot,
-                    req.body.fertilizer,
-                    req.body.light,
+                    req.body.notes,
                     new Date()
                 )
-                .then(() => {
-                    res.sendStatus(200);
+                .then(id => {
+                    res.json({
+                        id: id,
+                        name: req.body.name,
+                        notes: req.body.notes,
+                        picture: url
+                    });
                 })
                 .catch(next);
         });
     }
 );
-
-// ////////////////////SHOW GARDEN ROUTE////////////////////
-// ////////////////////SHOW PLANTS ROUTE////////////////////
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

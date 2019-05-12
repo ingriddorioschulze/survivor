@@ -53,37 +53,17 @@ VALUES ($1, $2, $3) RETURNING id`;
     });
 };
 
-exports.addPlant = function addPlant(
-    users_id,
+exports.createPlant = function addPlant(
+    user_id,
     garden_id,
-    plant_name,
-    plant_scientific_name,
-    date,
-    plant_picture,
-    water,
-    soil,
-    pot,
-    fertilizer,
-    light,
+    name,
+    picture,
+    notes,
     time
 ) {
-    const q = `INSERT INTO plants (users_id, garden_id, plant_name, plant_scientific_name, 
-        date, plant_picture, water, soil, pot, fertilizer, light, time) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id`;
-    const params = [
-        users_id,
-        garden_id,
-        plant_name,
-        plant_scientific_name,
-        date,
-        plant_picture,
-        water,
-        soil,
-        pot,
-        fertilizer,
-        light,
-        time
-    ];
+    const q = `INSERT INTO plants (user_id, garden_id, name, picture, notes, time) 
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
+    const params = [user_id, garden_id, name, picture, notes, time];
     return db.query(q, params).then(result => {
         return result.rows[0].id;
     });
@@ -101,19 +81,19 @@ exports.getGardens = function(user_id) {
 };
 
 //one garden//
-exports.getGarden = function(id) {
-    const q = `SELECT garden_name, garden_location, garden_type, time
+exports.getGarden = function(id, user_id) {
+    const q = `SELECT id, name, time
     FROM garden 
-    WHERE id = $1`;
-    const params = [id];
+    WHERE id = $1
+    AND user_id = $2`;
+    const params = [id, user_id];
     return db.query(q, params).then(result => {
         return result.rows[0];
     });
 };
 
 exports.getPlantsForGarden = function(garden_id) {
-    const q = `SELECT plant_name, plant_scientific_name, 
-    date, plant_picture, water, soil, pot, fertilizer, light, time
+    const q = `SELECT id, name, picture, notes, time
     FROM plants
     WHERE garden_id = $1`;
     const params = [garden_id];

@@ -2,7 +2,6 @@ import React from "react";
 import axios from "./axios";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGarden from "./creategarden";
-import Plants from "./plants";
 import Garden from "./garden";
 import GardenList from "./gardenlist";
 
