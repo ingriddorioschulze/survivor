@@ -115,7 +115,7 @@ body {
     border-radius: 8px;
     margin-top: 30px;
     margin-bottom: 30px;
-    background: transparent;
+    background: #f67280;
     padding: 0;
     cursor: pointer;
 }
@@ -131,7 +131,42 @@ body {
     background-color: red;
 }
 
-/* //FOOTER CONTAINER// */
+/* //GARDEN LIST// */
+
+.garden-overview {
+    display: flex;
+    justify-content: center;
+}
+.create-garden-area,
+.existing-garden-area {
+    display: flex;
+    padding: 40px;
+    background: #c4e3cb;
+    margin: 40px;
+    width: 250px;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+}
+.add-icon,
+.garden-icon {
+    width: 80px;
+    margin: 30px;
+}
+
+.garden-add-text {
+    text-align: center;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #616161;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* //FOOTER// */
 
 main {
     min-height: calc(100vh - 135px);
