@@ -212,7 +212,14 @@ app.get("/api/waterings", loggedIn, (req, res) => {
 // ////////////////////COMPLETE WATERING ROUTE////////////////////
 app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
     db.completeWatering(req.params.id).then(completeWatering => {
-        res.json(completeWatering);
+        const timeDue = moment()
+            .startOf("day")
+            .add(completeWatering.water_days, "days");
+        db.createWatering(completeWatering.plant_id, timeDue.toDate()).then(
+            () => {
+                res.json(completeWatering);
+            }
+        );
     });
 });
 

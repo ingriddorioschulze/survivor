@@ -2,18 +2,25 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-const GardenCard = ({ garden }) => (
-    <div className="existing-garden-area">
-        <Link to={`/garden/${garden.id}`}>
-            <img
-                className="garden-icon"
-                src="/garden-icon.png"
-                alt="garden icon"
-            />
-            {garden.name}
-        </Link>
-    </div>
-);
+const GardenCard = ({ garden, waterings }) => {
+    const numberOfWaterings = waterings.filter(watering => {
+        return garden.id === watering.garden_id;
+    }).length;
+
+    return (
+        <div className="existing-garden-area">
+            <Link to={`/garden/${garden.id}`}>
+                <img
+                    className="garden-icon"
+                    src="/garden-icon.png"
+                    alt="garden icon"
+                />
+                {garden.name}
+            </Link>
+            {numberOfWaterings > 0 && <div>{numberOfWaterings}</div>}
+        </div>
+    );
+};
 
 export default class GardenList extends React.Component {
     constructor(props) {
@@ -45,7 +52,11 @@ export default class GardenList extends React.Component {
                     </Link>
                 </div>
                 {this.state.gardens.map(garden => (
-                    <GardenCard key={garden.id} garden={garden} />
+                    <GardenCard
+                        key={garden.id}
+                        garden={garden}
+                        waterings={this.props.waterings}
+                    />
                 ))}
             </div>
         );

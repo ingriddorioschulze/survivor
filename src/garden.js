@@ -80,13 +80,11 @@ export default class Garden extends React.Component {
     }
 
     componentDidMount() {
-        axios
-            .get(`/api/garden/${this.props.match.params.id}`)
-            .then(({ data }) => {
-                this.setState({
-                    garden: data
-                });
+        axios.get(`/api/garden/${this.props.gardenId}`).then(({ data }) => {
+            this.setState({
+                garden: data
             });
+        });
     }
 
     plantAdded(plant) {
@@ -138,13 +136,33 @@ export default class Garden extends React.Component {
                 </div>
                 <div className="show-plants-container">
                     {this.state.garden.plants.map(plant => (
-                        <div key={plant.id} className="show-plants-area">
-                            {/* //add picture?// */}
-                            <div className="show-plant-name">{plant.name}</div>
-                        </div>
+                        <Plant
+                            key={plant.id}
+                            plant={plant}
+                            waterings={this.props.waterings}
+                            completeWatering={this.props.completeWatering}
+                        />
                     ))}
                 </div>
             </div>
         );
     }
 }
+
+const Plant = ({ plant, waterings, completeWatering }) => {
+    const needsWatering = waterings.find(watering => {
+        return plant.id === watering.plant_id;
+    });
+
+    return (
+        <div className="show-plants-area">
+            {/* //add picture?// */}
+            <div className="show-plant-name">{plant.name}</div>
+            {needsWatering && (
+                <div onClick={() => completeWatering(needsWatering.id)}>
+                    needs water
+                </div>
+            )}
+        </div>
+    );
+};

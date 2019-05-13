@@ -113,7 +113,7 @@ exports.createWatering = function(plant_id, time_due) {
 };
 
 exports.getWaterings = function(user_id) {
-    const q = `SELECT waterings.id AS id, plants.name AS plant_name, garden.name AS garden_name, picture, plant_id, done, time_done, time_due
+    const q = `SELECT waterings.id AS id, garden.id AS garden_id, plants.name AS plant_name, garden.name AS garden_name, picture, plant_id, done, time_done, time_due
     FROM waterings
     JOIN plants ON plants.id = plant_id 
     JOIN garden ON garden.id = plants.garden_id
@@ -129,9 +129,9 @@ exports.getWaterings = function(user_id) {
 exports.completeWatering = function(id) {
     const q = `UPDATE waterings SET done = true, time_done = now()
     WHERE id = $1
-    RETURNING time_done`;
+    RETURNING (SELECT water_days FROM plants WHERE id = plant_id), plant_id, time_done`;
     const params = [id];
     return db.query(q, params).then(result => {
-        return result.rows[0].id;
+        return result.rows[0];
     });
 };

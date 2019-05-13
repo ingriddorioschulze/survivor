@@ -1,4 +1,4 @@
-import axios from "./axios";
+const axios = require("axios");
 
 const TREFLE_TOKEN = require("./secrets.json").TREFLE_TOKEN;
 

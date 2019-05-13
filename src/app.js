@@ -49,7 +49,7 @@ export default class App extends React.Component {
             <BrowserRouter>
                 <div className="app">
                     <header className="header">
-                        <NavLink to="/welcome">
+                        <NavLink to="/">
                             <img
                                 className="header-survivor-logo"
                                 src="/survivor.png"
@@ -83,12 +83,29 @@ export default class App extends React.Component {
                     </header>
                     <main>
                         <Switch>
-                            <Route exact path="/" component={GardenList} />
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <GardenList
+                                        waterings={this.state.waterings}
+                                    />
+                                )}
+                            />
                             <Route
                                 path="/garden/new"
                                 component={CreateGarden}
                             />
-                            <Route path="/garden/:id" component={Garden} />
+                            <Route
+                                path="/garden/:id"
+                                render={({ match }) => (
+                                    <Garden
+                                        gardenId={match.params.id}
+                                        waterings={this.state.waterings}
+                                        completeWatering={this.completeWatering}
+                                    />
+                                )}
+                            />
                             <Route
                                 path="/waterings"
                                 render={() => (
