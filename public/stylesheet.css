@@ -81,14 +81,13 @@ body {
     align-items: center;
 }
 
-.register-title,
-.login-title {
+.title {
     font-size: 40px;
     color: #616161;
+    text-align: center;
 }
 
-.register-form,
-.login-form {
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,6 +135,7 @@ body {
 .garden-overview {
     display: flex;
     justify-content: center;
+    padding: 20px;
 }
 .create-garden-area,
 .existing-garden-area {
@@ -164,6 +164,19 @@ a {
     color: #616161;
     text-align: center;
     font-size: 20px;
+}
+
+/* //CREATE GARDEN// */
+
+.garden-container {
+    display: flex;
+    flex-direction: column;
+    margin: 60px;
+}
+
+.garden-title {
+    font-size: 30px;
+    text-align: center;
 }
 
 /* //FOOTER// */

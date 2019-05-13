@@ -34,9 +34,7 @@ class Welcome extends React.Component {
                     </header>
                     <main>
                         <div className="welcome-container">
-                            <div className="welcome-text">
-                                I'm gonna make it
-                            </div>
+                            <div className="title">i am gonna make it</div>
                             <Route path="/login" component={Login} />
                         </div>
                     </main>

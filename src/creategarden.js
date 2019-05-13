@@ -21,17 +21,17 @@ export default class CreateGarden extends React.Component {
     render() {
         return (
             <div className="garden-container">
-                <div className="garden-title">
+                <div className="title">
                     create me a comfortable and beautiful place to live
                 </div>
-                <form className="garden-form" onSubmit={this.submit}>
+                <form className="form" onSubmit={this.submit}>
                     <input
                         name="name"
-                        className="garden-name"
+                        className="input"
                         placeholder="garden name"
                         required
                     />
-                    <button className="garden-button">create</button>
+                    <button className="btn">create</button>
                 </form>
             </div>
         );

@@ -40,8 +40,8 @@ export default class Login extends React.Component {
                 <div className="login-area">
                     {errorDiv}
                     <div className="login-container">
-                        <div className="login-title">login</div>
-                        <form className="login-form" onSubmit={this.submit}>
+                        <div className="title">login</div>
+                        <form className="form" onSubmit={this.submit}>
                             <input
                                 name="email"
                                 className="input"

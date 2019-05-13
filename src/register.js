@@ -43,8 +43,8 @@ export default class Register extends React.Component {
                 {errorDiv}
                 <div className="register-area">
                     <div className="register-container">
-                        <div className="register-title">register</div>
-                        <form className="register-form" onSubmit={this.submit}>
+                        <div className="title">register</div>
+                        <form className="form" onSubmit={this.submit}>
                             <input
                                 name="firstname"
                                 className="input"
