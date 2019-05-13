@@ -5,7 +5,7 @@
 body {
     background-color: #f4f9f4;
     margin: 0;
-    font-family: Pompiere;
+    font-family: Poiret One;
 }
 
 /* //HEADER // */
@@ -14,6 +14,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .header-survivor-logo {
@@ -45,21 +46,85 @@ body {
 
 .welcome-text {
     font-size: 30px;
+    padding: 20px;
+    color: #616161;
 }
 
 /* // APP // */
 
-/* // REGISTRATION LOGIN // */
+/* // LOGIN AND REGISTRATION // */
 
 .registration-login-container {
     display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-.register-area {
-    flex: 1;
-}
-
+.register-area,
 .login-area {
     flex: 1;
+    padding: 40px;
+    width: 360px;
+    height: 580px;
+    background: #c4e3cb;
+    margin: 40px;
+    /* opacity: 0.5; */
+}
+.login-area {
+    height: 340px;
+}
+
+.register-container,
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-title,
+.login-title {
+    font-size: 40px;
+    color: #616161;
+}
+
+.register-form,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.input {
+    height: 40px;
+    width: 248px;
+    border: 1px solid #616161;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: transparent;
+}
+
+.btn {
+    font-size: 15px;
+    font-family: Poiret One;
+    color: #616161;
+    height: 40px;
+    width: 135px;
+    border: 1px solid #616161;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+::placeholder {
+    font-family: Poiret One;
+    font-size: 15px;
+    color: #616161;
+    text-align: center;
 }
 
 .has-waterings {

@@ -5,6 +5,7 @@ import CreateGarden from "./creategarden";
 import Garden from "./garden";
 import GardenList from "./gardenlist";
 import Waterings from "./waterings";
+import Search from "./search";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -97,6 +98,7 @@ export default class App extends React.Component {
                                     />
                                 )}
                             />
+                            <Route path="/search" component={Search} />
                         </Switch>
                     </main>
                     <footer className="copyright">

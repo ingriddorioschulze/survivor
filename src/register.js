@@ -43,51 +43,51 @@ export default class Register extends React.Component {
                 {errorDiv}
                 <div className="register-area">
                     <div className="register-container">
-                        <div className="register-text">register</div>
+                        <div className="register-title">register</div>
                         <form className="register-form" onSubmit={this.submit}>
                             <input
                                 name="firstname"
-                                className="register-firstname"
+                                className="input"
                                 type="text"
                                 placeholder="first name"
                                 required
                             />
                             <input
                                 name="lastname"
-                                className="register-lastname"
+                                className="input"
                                 type="text"
                                 placeholder="last name"
                                 required
                             />
                             <input
                                 name="city"
-                                className="register-city"
+                                className="input"
                                 type="text"
                                 placeholder="city"
                                 required
                             />
                             <input
                                 name="country"
-                                className="register-country"
+                                className="input"
                                 type="text"
                                 placeholder="country"
                                 required
                             />
                             <input
                                 name="email"
-                                className="register-email"
+                                className="input"
                                 type="text"
                                 placeholder="email"
                                 required
                             />
                             <input
                                 name="password"
-                                className="register-password"
+                                className="input"
                                 type="password"
                                 placeholder="password"
                                 required
                             />
-                            <button className="register-button" type="submit">
+                            <button className="btn" type="submit">
                                 register
                             </button>
                         </form>

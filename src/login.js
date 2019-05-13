@@ -44,22 +44,19 @@ export default class Login extends React.Component {
                         <form className="login-form" onSubmit={this.submit}>
                             <input
                                 name="email"
-                                className="login-email"
+                                className="input"
                                 type="text"
                                 placeholder="email"
                                 required
                             />
                             <input
                                 name="password"
-                                className="login-password"
+                                className="input"
                                 type="password"
                                 placeholder="password"
                                 required
                             />
-                            <button
-                                className="login-button login-button-hover"
-                                type="submit"
-                            >
+                            <button className="btn" type="submit">
                                 login
                             </button>
                         </form>

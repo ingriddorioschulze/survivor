@@ -9,6 +9,7 @@ const password = require("./password");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const moment = require("moment");
+const trefle = require("./trefle");
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -134,9 +135,9 @@ function loggedIn(req, res, next) {
 
 // ////////////////////SEARCH ROUTE////////////////////
 
-// app.get("/api/search", loggedIn, (req, res) => {
-//     db.search(req.query.text).then(results => res.json(results));
-// });
+app.get("/api/search", (req, res) => {
+    trefle.search(req.query.term).then(results => res.json(results));
+});
 
 // ////////////////////GET GARDENS ROUTE////////////////////
 
