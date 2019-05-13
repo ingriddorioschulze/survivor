@@ -6,6 +6,7 @@ body {
     background-color: #f4f9f4;
     margin: 0;
     font-family: Poiret One;
+    color: #616161;
 }
 
 /* //HEADER // */
@@ -228,6 +229,95 @@ a {
     align-items: center;
     margin-bottom: 20px;
 }
+
+/* //ADD PLANT// */
+
+.upload-plant-picture {
+    height: 0.1px;
+    width: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.upload-plant-picture + label {
+    height: 40px;
+    width: 40%;
+    font-size: 12px;
+    color: #616161;
+    border: 1px solid #616161;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: transparent;
+    padding: 11px 15px;
+    white-space: nowrap;
+}
+.textarea {
+    height: 40px;
+    width: 248px;
+    border: 1px solid #616161;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: transparent;
+}
+
+.select {
+    font-size: 12px;
+    color: #616161;
+    width: 50px;
+    border: 1px solid #616161;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: transparent;
+}
+
+/* //SEARCH// */
+
+.search {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-input {
+    height: 40px;
+    width: 248px;
+    background: transparent;
+    border: 1px solid #616161;
+    font-size: 18px;
+}
+
+/* .search-results {
+    position: absolute;
+    width: 100%;
+    top: 35px;
+    border: 1px solid #616161;
+    background: transparent;
+    margin-top: 5px;
+    padding: 4px;
+    overflow: scroll;
+}
+
+.results-list-item {
+    height: 40px;
+    padding: 2px;
+}
+
+.search-result-name {
+    font-size: 16px;
+    align-self: center;
+}
+
+.results-list-item a {
+    text-decoration: none;
+    display: flex;
+}
+.search-no-results {
+    color: grey;
+} */
 
 /* //FOOTER// */
 

@@ -10,11 +10,31 @@ class AddPlant extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
-                <input type="text" name="name" />
-                <textarea name="notes" />
-                <input type="file" name="picture" />
-                <select name="xDays">
+            <form className="form" onSubmit={this.submit}>
+                <input
+                    className="input"
+                    type="text"
+                    name="name"
+                    placeholder="name"
+                />
+                <textarea
+                    className="textarea"
+                    name="notes"
+                    placeholder="notes"
+                    cols="50"
+                    rows="4"
+                />
+                <input
+                    className="upload-plant-picture"
+                    type="file"
+                    name="picture"
+                    id="file"
+                    accept="image/*"
+                />
+                <label htmlFor="file">
+                    <span className="choose-file">choose a file</span>
+                </label>
+                <select className="select" name="xDays">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -23,7 +43,7 @@ class AddPlant extends React.Component {
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <button>submit</button>
+                <button className="btn">submit</button>
             </form>
         );
     }
