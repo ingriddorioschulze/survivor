@@ -42,6 +42,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    margin: 30px;
 }
 
 .welcome-text {
@@ -140,6 +141,7 @@ body {
 .create-garden-area,
 .existing-garden-area {
     display: flex;
+    flex-direction: column;
     padding: 40px;
     background: #c4e3cb;
     margin: 40px;
@@ -168,15 +170,63 @@ a {
 
 /* //CREATE GARDEN// */
 
-.garden-container {
+.garden-container,
+.show-garden-container {
     display: flex;
     flex-direction: column;
     margin: 60px;
+    justify-content: center;
+    align-items: center;
 }
 
 .garden-title {
     font-size: 30px;
     text-align: center;
+}
+
+/* //SHOW GARDEN// */
+
+.show-garden-area {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: #c4e3cb;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.show-garden-icon {
+    width: 60px;
+    margin: 20px;
+}
+
+.show-garden-name {
+    text-align: center;
+    font-size: 15px;
+}
+
+/* //SHOW PLANTS// */
+
+.show-plants-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-plants-area {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: #c4e3cb;
+    width: 90%;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 /* //FOOTER// */

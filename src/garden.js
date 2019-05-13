@@ -93,19 +93,37 @@ export default class Garden extends React.Component {
             );
         } else {
             addPlant = (
-                <button onClick={() => this.setState({ showAddPlant: true })}>
+                <button
+                    className="btn"
+                    onClick={() => this.setState({ showAddPlant: true })}
+                >
                     add plant
                 </button>
             );
         }
         return (
-            <div>
-                <h1>{this.state.garden.name}</h1>
-                {addPlant}
-                <h2>plants</h2>
-                {this.state.garden.plants.map(plant => (
-                    <div key={plant.id}>{plant.name}</div>
-                ))}
+            <div className="show-garden">
+                <div className="show-garden-container">
+                    <div className="show-garden-area">
+                        <img
+                            className="show-garden-icon"
+                            src="/garden-icon.png"
+                            alt="garden icon"
+                        />
+                        <div className="show-garden-name">
+                            {this.state.garden.name}
+                        </div>
+                    </div>
+                    {addPlant}
+                </div>
+                <div className="show-plants-container">
+                    {this.state.garden.plants.map(plant => (
+                        <div key={plant.id} className="show-plants-area">
+                            {/* //add picture?// */}
+                            <div className="show-plant-name">{plant.name}</div>
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     }
