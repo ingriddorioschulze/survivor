@@ -11,19 +11,22 @@ class AddPlant extends React.Component {
     render() {
         return (
             <form className="form" onSubmit={this.submit}>
+                <div>give me a cute name</div>
                 <input
-                    className="input"
+                    className="input input-margin"
                     type="text"
                     name="name"
                     placeholder="name"
                 />
+                <div>here you can write everything you want about me</div>
                 <textarea
-                    className="textarea"
+                    className="textarea textarea-margin"
                     name="notes"
                     placeholder="notes"
                     cols="50"
                     rows="4"
                 />
+                <div>upload here a beautiful picture</div>
                 <input
                     className="upload-plant-picture"
                     type="file"
@@ -34,16 +37,17 @@ class AddPlant extends React.Component {
                 <label htmlFor="file">
                     <span className="choose-file">choose a file</span>
                 </label>
-                <select className="select" name="xDays">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
+                <div>how often you should remember water me?</div>
+                <select className="select select-margin" name="xDays">
+                    <option value="1">on every 1 day</option>
+                    <option value="2">on every 2 days</option>
+                    <option value="3">on every 3 days</option>
+                    <option value="4">on every 4 days</option>
+                    <option value="5">on every 5 days</option>
+                    <option value="6">on every 6 days</option>
+                    <option value="7">on every 7 days</option>
                 </select>
-                <button className="btn">submit</button>
+                <button className="btn">good job, human!</button>
             </form>
         );
     }
@@ -112,9 +116,15 @@ export default class Garden extends React.Component {
         } else {
             addPlant = (
                 <button
-                    className="btn"
+                    className="btn-add-plant"
                     onClick={() => this.setState({ showAddPlant: true })}
                 >
+                    <img
+                        className="add-garden-icon"
+                        src="/add-icon.png"
+                        alt="add icon"
+                    />
+                    <br />
                     add plant
                 </button>
             );
@@ -122,18 +132,11 @@ export default class Garden extends React.Component {
         return (
             <div className="show-garden">
                 <div className="show-garden-container">
-                    <div className="show-garden-area">
-                        <img
-                            className="show-garden-icon"
-                            src="/garden-icon.png"
-                            alt="garden icon"
-                        />
-                        <div className="show-garden-name">
-                            {this.state.garden.name}
-                        </div>
+                    <div className="show-garden-name">
+                        {this.state.garden.name}
                     </div>
-                    {addPlant}
                 </div>
+                {addPlant}
                 <div className="show-plants-container">
                     {this.state.garden.plants.map(plant => (
                         <Plant
@@ -156,11 +159,16 @@ const Plant = ({ plant, waterings, completeWatering }) => {
 
     return (
         <div className="show-plants-area">
-            {/* //add picture?// */}
+            <img
+                className="show-plant-picture"
+                src={plant.picture}
+                alt="plant picture"
+            />
             <div className="show-plant-name">{plant.name}</div>
+            <br />
             {needsWatering && (
                 <div onClick={() => completeWatering(needsWatering.id)}>
-                    needs water
+                    I need water, remember?
                 </div>
             )}
         </div>

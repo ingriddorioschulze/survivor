@@ -15,9 +15,16 @@ const GardenCard = ({ garden, waterings }) => {
                     src="/garden-icon.png"
                     alt="garden icon"
                 />
+                <br />
                 {garden.name}
             </Link>
-            {numberOfWaterings > 0 && <div>{numberOfWaterings}</div>}
+            {numberOfWaterings > 0 && (
+                <div className="number-waterings">
+                    {numberOfWaterings > 1
+                        ? `${numberOfWaterings} plants to water`
+                        : "1 plant to water"}
+                </div>
+            )}
         </div>
     );
 };

@@ -15,7 +15,9 @@ function debouncer(fn, thisarg, time) {
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            searchResults: []
+        };
         this.search = debouncer(this.search, this, 350);
     }
 
@@ -26,21 +28,35 @@ export default class Search extends React.Component {
             })
             .then(({ data }) =>
                 this.setState({
-                    results: data
+                    searchResults: data
                 })
             );
     }
 
     render() {
         return (
-            <div className="search">
+            <div className="search welcome-search">
                 <input
                     onChange={e => this.search(e.target.value)}
                     type="text"
                     className="search-input"
                     placeholder="search"
                 />
-                <div className="search-results" />
+                {this.state.searchResults.map(result => {
+                    let image;
+                    if (result.images && result.images.length > 0) {
+                        image = result.images[0].url;
+                    }
+                    return (
+                        <div className="search-results" key={result.id}>
+                            <img className="search-image" src={result.image} />
+                            <span className="search-name">
+                                {result.common_name}
+                                {/* {result.scientific_name} */}
+                            </span>
+                        </div>
+                    );
+                })}
             </div>
         );
     }

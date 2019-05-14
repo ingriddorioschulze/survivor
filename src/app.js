@@ -64,12 +64,11 @@ export default class App extends React.Component {
                                     alt="search icon"
                                 />
                             </NavLink>
-                            {/* //change icon, class// */}
                             <NavLink to="/waterings">
                                 <img
                                     className={wateringIconClasses.join(" ")}
-                                    src="/login-icon.png"
-                                    alt="login icon"
+                                    src="/drop-icon.png"
+                                    alt="drop icon"
                                 />
                             </NavLink>
                             <a onClick={this.logout}>

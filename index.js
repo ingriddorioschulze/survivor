@@ -210,6 +210,7 @@ app.get("/api/waterings", loggedIn, (req, res) => {
 });
 
 // ////////////////////COMPLETE WATERING ROUTE////////////////////
+
 app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
     db.completeWatering(req.params.id).then(completeWatering => {
         const timeDue = moment()
@@ -222,6 +223,8 @@ app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
         );
     });
 });
+
+// ////////////////////SEARCH GET ONE PLANT ROUTE////////////////////
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

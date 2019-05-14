@@ -30,7 +30,8 @@ body {
 
 .header-search-icon,
 .header-login-icon,
-.header-logout-icon {
+.header-logout-icon,
+.header-drop-icon {
     width: 35px;
     margin: 25px;
 }
@@ -50,6 +51,37 @@ body {
     font-size: 30px;
     padding: 20px;
     color: #616161;
+}
+
+.typewriter h1 {
+    color: #616161;
+    overflow: hidden;
+    border-right: 0.15em solid #616161;
+    white-space: nowrap;
+    margin: 0 auto;
+    margin-top: 60px;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+    animation-iteration-count: infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #616161;
+    }
 }
 
 /* // APP // */
@@ -84,7 +116,7 @@ body {
 }
 
 .title {
-    font-size: 40px;
+    font-size: 30px;
     color: #616161;
     text-align: center;
 }
@@ -106,6 +138,10 @@ body {
     background: transparent;
 }
 
+.input-margin {
+    margin-bottom: 30px;
+}
+
 .btn {
     font-size: 15px;
     font-family: Poiret One;
@@ -121,6 +157,21 @@ body {
     cursor: pointer;
 }
 
+.btn-add-plant {
+    font-size: 15px;
+    font-family: Poiret One;
+    color: #f4f9f4;
+    height: 250px;
+    width: 250px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: #f67280;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 20px;
+    text-align: center;
+}
+
 ::placeholder {
     font-family: Poiret One;
     font-size: 15px;
@@ -129,7 +180,9 @@ body {
 }
 
 .has-waterings {
-    background-color: red;
+    background-color: #3fc1c9;
+    border-radius: 30px;
+    padding: 4px;
 }
 
 /* //GARDEN LIST// */
@@ -138,6 +191,7 @@ body {
     display: flex;
     justify-content: center;
     padding: 20px;
+    flex-wrap: wrap;
 }
 .create-garden-area,
 .existing-garden-area {
@@ -151,8 +205,21 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.create-garden-area {
+    background: #8aae92;
+}
+
+.number-waterings {
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 10px;
+}
+
 .add-icon,
-.garden-icon {
+.garden-icon,
+.add-garden-icon {
     width: 80px;
     margin: 30px;
 }
@@ -160,6 +227,7 @@ body {
 .garden-add-text {
     text-align: center;
     font-size: 20px;
+    color: #f4f9f4;
 }
 
 a {
@@ -171,8 +239,7 @@ a {
 
 /* //CREATE GARDEN// */
 
-.garden-container,
-.show-garden-container {
+.garden-container {
     display: flex;
     flex-direction: column;
     margin: 60px;
@@ -187,33 +254,47 @@ a {
 
 /* //SHOW GARDEN// */
 
+.show-garden {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .show-garden-area {
     display: flex;
     flex-direction: column;
     padding: 40px;
-    background: #c4e3cb;
-    width: 150px;
-    height: 150px;
+    background: #8aae92;
+    width: 250px;
+    height: 250px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.show-garden-container {
+    display: flex;
+    margin: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 .show-garden-icon {
-    width: 60px;
-    margin: 20px;
+    width: 80px;
+    margin: 30px;
 }
 
 .show-garden-name {
     text-align: center;
-    font-size: 15px;
+    color: #616161;
+    font-size: 30px;
 }
 
 /* //SHOW PLANTS// */
 
 .show-plants-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -223,11 +304,23 @@ a {
     flex-direction: column;
     padding: 40px;
     background: #c4e3cb;
-    width: 90%;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 40px;
+}
+
+.show-plant-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    object-fit: cover;
+    object-position: center;
+    margin: 20px;
+}
+
+.show-plant-name {
 }
 
 /* //ADD PLANT// */
@@ -250,9 +343,14 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
-    padding: 11px 15px;
+    padding: 11px 33px;
     white-space: nowrap;
 }
+
+.upload-plant-picture + label {
+    margin-bottom: 30px;
+}
+
 .textarea {
     height: 40px;
     width: 248px;
@@ -262,14 +360,22 @@ a {
     background: transparent;
 }
 
+.textarea-margin {
+    margin-bottom: 30px;
+}
+
 .select {
     font-size: 12px;
     color: #616161;
-    width: 50px;
+    width: 120px;
     border: 1px solid #616161;
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
+}
+
+.select-margin {
+    margin-bottom: 30px;
 }
 
 /* //SEARCH// */
@@ -290,34 +396,9 @@ a {
     font-size: 18px;
 }
 
-/* .search-results {
-    position: absolute;
-    width: 100%;
-    top: 35px;
-    border: 1px solid #616161;
-    background: transparent;
-    margin-top: 5px;
-    padding: 4px;
-    overflow: scroll;
+.welcome-search {
+    margin-top: 60px;
 }
-
-.results-list-item {
-    height: 40px;
-    padding: 2px;
-}
-
-.search-result-name {
-    font-size: 16px;
-    align-self: center;
-}
-
-.results-list-item a {
-    text-decoration: none;
-    display: flex;
-}
-.search-no-results {
-    color: grey;
-} */
 
 /* //FOOTER// */
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
 import Login from "./login";
+import Search from "./search";
 
 class Welcome extends React.Component {
     render() {
@@ -34,8 +35,11 @@ class Welcome extends React.Component {
                     </header>
                     <main>
                         <div className="welcome-container">
-                            <div className="title">i am gonna make it</div>
+                            <div className="typewriter">
+                                <h1>i am gonna make it</h1>
+                            </div>
                             <Route path="/login" component={Login} />
+                            <Route path="/search" component={Search} />
                         </div>
                     </main>
                     <footer className="copyright">
