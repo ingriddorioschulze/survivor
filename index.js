@@ -133,10 +133,16 @@ function loggedIn(req, res, next) {
     }
 }
 
+// // ////////////////////SEARCH W/ API ROUTE////////////////////
+
+// app.get("/api/search", (req, res) => {
+//     trefle.search(req.query.term).then(results => res.json(results));
+// });
+
 // ////////////////////SEARCH ROUTE////////////////////
 
 app.get("/api/search", (req, res) => {
-    trefle.search(req.query.term).then(results => res.json(results));
+    db.search(req.query.term).then(results => res.json(results));
 });
 
 // ////////////////////GET GARDENS ROUTE////////////////////

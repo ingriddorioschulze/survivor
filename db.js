@@ -135,3 +135,14 @@ exports.completeWatering = function(id) {
         return result.rows[0];
     });
 };
+
+exports.search = function(text) {
+    const q = `SELECT id, name, scientific_name, description, picture, light, water, fertilizer, temperature, humidity, soil, pot_size
+    FROM search_plants
+    WHERE lower(name) LIKE $1
+    OR lower(scientific_name) LIKE $1`;
+    const params = [`%${text.toLowerCase()}%`];
+    return db.query(q, params).then(result => {
+        return result.rows;
+    });
+};

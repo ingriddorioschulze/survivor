@@ -12,13 +12,42 @@ function debouncer(fn, thisarg, time) {
     };
 }
 
+const Modal = ({ plant, close }) => (
+    <div className="modal-container">
+        <div className="modal-area">
+            <button onClick={close}>close</button>
+            <img className="search-image" src={plant.picture} />
+            <span className="search-name">{plant.name}</span>
+            <h4>description</h4>
+            <p>{plant.description}</p>
+            <h4>light</h4>
+            <p>{plant.light}</p>
+            <h4>water</h4>
+            <p>{plant.water}</p>
+            <h4>fertilizer</h4>
+            <p>{plant.fertilizer}</p>
+            <h4>temperature</h4>
+            <p>{plant.temperature}</p>
+            <h4>humidity</h4>
+            <p>{plant.humidity}</p>
+            <h4>soil</h4>
+            <p>{plant.soil}</p>
+            <h4>pot size</h4>
+            <p>{plant.pot_size}</p>
+        </div>
+    </div>
+);
+
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchResults: []
+            searchResults: [],
+            selectedPlant: undefined
         };
         this.search = debouncer(this.search, this, 350);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     search(term) {
@@ -33,6 +62,14 @@ export default class Search extends React.Component {
             );
     }
 
+    openModal(plant) {
+        this.setState({ selectedPlant: plant });
+    }
+
+    closeModal() {
+        this.setState({ selectedPlant: undefined });
+    }
+
     render() {
         return (
             <div className="search welcome-search">
@@ -43,20 +80,29 @@ export default class Search extends React.Component {
                     placeholder="search"
                 />
                 {this.state.searchResults.map(result => {
-                    let image;
-                    if (result.images && result.images.length > 0) {
-                        image = result.images[0].url;
-                    }
                     return (
-                        <div className="search-results" key={result.id}>
-                            <img className="search-image" src={result.image} />
+                        <div
+                            onClick={() => this.openModal(result)}
+                            className="search-result"
+                            key={result.id}
+                        >
+                            <img
+                                className="search-image"
+                                src={result.picture}
+                            />
                             <span className="search-name">
-                                {result.common_name}
+                                {result.name}
                                 {/* {result.scientific_name} */}
                             </span>
                         </div>
                     );
                 })}
+                {this.state.selectedPlant && (
+                    <Modal
+                        plant={this.state.selectedPlant}
+                        close={this.closeModal}
+                    />
+                )}
             </div>
         );
     }
