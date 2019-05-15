@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { BrowserRouter, Link } from "react-router-dom";
 
 export default class Register extends React.Component {
     constructor(props) {
@@ -90,6 +91,11 @@ export default class Register extends React.Component {
                                 register
                             </button>
                         </form>
+                        <div className="register-login-text">
+                            <Link to="/login">
+                                already a plant keeper? login
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

@@ -53,10 +53,8 @@ body {
     border-right: 0.15em solid #616161;
     white-space: nowrap;
     margin: 0 auto;
-    margin-top: 60px;
     letter-spacing: 0.15em;
     animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
-    animation-iteration-count: infinite;
 }
 
 @keyframes typing {
@@ -82,23 +80,9 @@ body {
 
 /* // LOGIN AND REGISTRATION // */
 
-.registration-login-container {
-    display: flex;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 .register-area,
 .login-area {
-    flex: 1;
-    padding: 40px;
-    width: 360px;
-    height: 580px;
-    background: #c4e3cb;
-    margin: 40px;
-    /* opacity: 0.5; */
-}
-.login-area {
-    height: 340px;
+    margin: 80px;
 }
 
 .register-container,
@@ -131,6 +115,9 @@ body {
     margin-bottom: 10px;
     background: transparent;
 }
+input:hover {
+    border: 2px solid #616161;
+}
 
 .input-margin {
     margin-bottom: 30px;
@@ -149,6 +136,10 @@ body {
     background: #ff8a80;
     padding: 0;
     cursor: pointer;
+}
+
+.btn:hover {
+    border: 2px solid #616161;
 }
 
 .btn-add-plant {
@@ -182,6 +173,9 @@ body {
     background: #ff8a80;
     padding: 0;
     cursor: pointer;
+}
+.btn-watering:hover {
+    border: 2px solid #616161;
 }
 
 ::placeholder {
@@ -261,7 +255,7 @@ a {
     text-decoration: none;
     color: #616161;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 /* //CREATE GARDEN// */
@@ -385,12 +379,16 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
-    padding: 11px 33px;
+    padding: 11px 95px;
     white-space: nowrap;
 }
 
 .upload-plant-picture + label {
     margin-bottom: 30px;
+}
+
+.upload-plant-picture + label:hover {
+    border: 2px solid #616161;
 }
 
 .textarea {
@@ -400,6 +398,10 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
+}
+
+.textarea:hover {
+    border: 2px solid #616161;
 }
 
 .textarea-margin {
@@ -414,6 +416,9 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
+}
+.select:hover {
+    border: 2px solid #616161;
 }
 
 .select-margin {
@@ -445,7 +450,7 @@ a {
 /* //FOOTER// */
 
 main {
-    min-height: calc(100vh - 135px);
+    min-height: calc(100vh - 200px);
 }
 
 .copyright {

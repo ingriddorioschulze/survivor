@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import Login from "./login";
+import Register from "./register";
 import Search from "./search";
 
 class Welcome extends React.Component {
@@ -38,6 +39,7 @@ class Welcome extends React.Component {
                             <div className="typewriter">
                                 <h1>i am gonna make it</h1>
                             </div>
+                            <Route path="/register" component={Register} />
                             <Route path="/login" component={Login} />
                             <Route path="/search" component={Search} />
                         </div>

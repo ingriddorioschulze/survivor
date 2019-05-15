@@ -1,6 +1,6 @@
 import React from "react";
+import { BrowserRouter, Link } from "react-router-dom";
 import axios from "./axios";
-import Register from "./register";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -36,7 +36,6 @@ export default class Login extends React.Component {
 
         return (
             <div className="registration-login-container">
-                <Register />
                 <div className="login-area">
                     {errorDiv}
                     <div className="login-container">
@@ -60,6 +59,12 @@ export default class Login extends React.Component {
                                 login
                             </button>
                         </form>
+                        <div className="login-text">
+                            <Link to="/register">
+                                don't have an account? register now and stop
+                                killing my species.
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
