@@ -13,19 +13,13 @@ body {
 
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .header-survivor-logo {
     width: 300px;
-}
-
-.header-icons-container {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
 }
 
 .header-search-icon,
