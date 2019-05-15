@@ -154,10 +154,15 @@ app.get("/api/gardens", loggedIn, (req, res) => {
 // ////////////////////SHOW GARDEN ROUTE////////////////////
 
 app.get("/api/garden/:id", loggedIn, (req, res) => {
-    Promise.all([
-        db.getGarden(req.params.id, req.session.userId),
-        db.getPlantsForGarden(req.params.id)
-    ]).then(([garden, plants]) => res.json({ ...garden, plants: plants }));
+    db.getGarden(req.params.id, req.session.userId).then(garden => {
+        if (!garden) {
+            return res.sendStatus(404);
+        } else {
+            db.getPlantsForGarden(req.params.id).then(plants =>
+                res.json({ ...garden, plants: plants })
+            );
+        }
+    });
 });
 
 // ////////////////////CREATE GARDEN ROUTE////////////////////
@@ -178,32 +183,52 @@ app.post(
     loggedIn,
     uploader.single("picture"),
     (req, res, next) => {
-        s3.uploadImage(req.file.path, req.file.filename).then(url => {
-            return db
-                .createPlant(
-                    req.session.userId,
-                    req.body.gardenId,
-                    req.body.name,
-                    url,
-                    req.body.notes,
-                    req.body.xDays,
-                    new Date()
-                )
-                .then(id => {
-                    const timeDue = moment()
-                        .startOf("day")
-                        .add(req.body.xDays, "days");
-                    return db.createWatering(id, timeDue.toDate()).then(() => {
-                        res.json({
-                            id: id,
-                            name: req.body.name,
-                            notes: req.body.notes,
-                            picture: url
-                        });
-                    });
-                })
-                .catch(next);
-        });
+        db.gardenBelongsToUser(req.body.gardenId, req.session.userId)
+            .then(gardenBelongs => {
+                if (!gardenBelongs) {
+                    throw new Error("NOT_ALLOWED");
+                }
+            })
+            .then(() => {
+                if (req.file) {
+                    return s3.uploadImage(req.file.path, req.file.filename);
+                }
+            })
+            .then(url => {
+                return db
+                    .createPlant(
+                        req.session.userId,
+                        req.body.gardenId,
+                        req.body.name,
+                        url,
+                        req.body.notes,
+                        req.body.xDays,
+                        new Date()
+                    )
+                    .then(id => {
+                        const timeDue = moment()
+                            .startOf("day")
+                            .add(req.body.xDays, "days");
+                        return db
+                            .createWatering(id, timeDue.toDate())
+                            .then(() => {
+                                res.json({
+                                    id: id,
+                                    name: req.body.name,
+                                    notes: req.body.notes,
+                                    picture: url
+                                });
+                            });
+                    })
+                    .catch(next);
+            })
+            .catch(e => {
+                if (e.message === "NOT_ALLOWED") {
+                    res.sendStatus(400);
+                } else {
+                    next(e);
+                }
+            });
     }
 );
 
@@ -230,7 +255,20 @@ app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
     });
 });
 
-// ////////////////////SEARCH GET ONE PLANT ROUTE////////////////////
+// ////////////////////DELETE PLANT ROUTE////////////////////
+
+app.delete("/api/plant/:id", loggedIn, (req, res) => {
+    db.deletePlant(req.params.id).then(() => {
+        res.sendStatus(204);
+    });
+});
+
+// ////////////////////DELETE GARDEN ROUTE////////////////////
+app.delete("/api/garden/:id", loggedIn, (req, res) => {
+    db.deleteGarden(req.params.id).then(() => {
+        res.sendStatus(204);
+    });
+});
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

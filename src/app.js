@@ -14,6 +14,8 @@ export default class App extends React.Component {
             waterings: []
         };
         this.completeWatering = this.completeWatering.bind(this);
+        this.gardenDeleted = this.gardenDeleted.bind(this);
+        this.plantDeleted = this.plantDeleted.bind(this);
     }
 
     logout() {
@@ -37,6 +39,22 @@ export default class App extends React.Component {
                     watering => watering.id !== id
                 )
             });
+        });
+    }
+
+    plantDeleted(id) {
+        this.setState({
+            waterings: this.state.waterings.filter(
+                watering => watering.plant_id !== id
+            )
+        });
+    }
+
+    gardenDeleted(id) {
+        this.setState({
+            waterings: this.state.waterings.filter(
+                watering => watering.garden_id !== id
+            )
         });
     }
 
@@ -97,11 +115,14 @@ export default class App extends React.Component {
                             />
                             <Route
                                 path="/garden/:id"
-                                render={({ match }) => (
+                                render={({ match, history }) => (
                                     <Garden
                                         gardenId={match.params.id}
                                         waterings={this.state.waterings}
                                         completeWatering={this.completeWatering}
+                                        plantDeleted={this.plantDeleted}
+                                        gardenDeleted={this.gardenDeleted}
+                                        history={history}
                                     />
                                 )}
                             />

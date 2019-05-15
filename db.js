@@ -146,3 +146,34 @@ exports.search = function(text) {
         return result.rows;
     });
 };
+
+exports.deletePlant = function(id) {
+    const deleteWaterings = `DELETE FROM waterings WHERE plant_id = $1`;
+    const deletePlant = `DELETE FROM plants WHERE id = $1`;
+    const params = [id];
+    return db.query(deleteWaterings, params).then(() => {
+        return db.query(deletePlant, params);
+    });
+};
+
+exports.deleteGarden = function(id) {
+    const deleteGarden = `DELETE FROM garden WHERE id = $1`;
+    const deleteWaterings = `DELETE FROM waterings USING plants 
+    WHERE waterings.plant_id = plants.id 
+    AND plants.garden_id = $1`;
+    const deletePlants = `DELETE FROM plants WHERE garden_id = $1`;
+    const params = [id];
+    return db.query(deleteWaterings, params).then(() => {
+        return db.query(deletePlants, params).then(() => {
+            return db.query(deleteGarden, params);
+        });
+    });
+};
+
+exports.gardenBelongsToUser = function(garden_id, user_id) {
+    const q = `SELECT count(id) FROM garden WHERE id = $1 AND user_id = $2`;
+    const params = [garden_id, user_id];
+    return db.query(q, params).then(result => {
+        return result.rows[0].count > 0;
+    });
+};

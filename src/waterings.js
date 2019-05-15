@@ -31,6 +31,11 @@ export default class Waterings extends React.Component {
                         completeWatering={this.props.completeWatering}
                     />
                 ))}
+                {this.props.waterings.length === 0 && (
+                    <div className="title">
+                        no waterings today. make sure to come back tomorrow
+                    </div>
+                )}
             </div>
         );
     }

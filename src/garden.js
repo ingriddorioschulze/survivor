@@ -86,6 +86,8 @@ export default class Garden extends React.Component {
             showAddPlant: false
         };
         this.plantAdded = this.plantAdded.bind(this);
+        this.deleteGarden = this.deleteGarden.bind(this);
+        this.deletePlant = this.deletePlant.bind(this);
     }
 
     componentDidMount() {
@@ -102,6 +104,25 @@ export default class Garden extends React.Component {
         this.setState({
             garden: garden,
             showAddPlant: false
+        });
+    }
+
+    deleteGarden() {
+        axios.delete(`/api/garden/${this.props.gardenId}`).then(() => {
+            this.props.history.push("/");
+        });
+    }
+
+    deletePlant(id) {
+        axios.delete(`/api/plant/${id}`).then(() => {
+            this.props.plantDeleted(id);
+            const garden = { ...this.state.garden };
+            garden.plants = garden.plants.filter(plant => {
+                return plant.id !== id;
+            });
+            this.setState({
+                garden: garden
+            });
         });
     }
 
@@ -140,7 +161,13 @@ export default class Garden extends React.Component {
                     <div className="show-garden-name">
                         {this.state.garden.name}
                     </div>
+                    <button onClick={this.deleteGarden}>delete garden</button>
                 </div>
+                {this.state.garden.plants.length === 0 && (
+                    <div className="title">
+                        you don't have any plants to call your family.
+                    </div>
+                )}
                 {addPlant}
                 <div className="show-plants-container">
                     {this.state.garden.plants.map(plant => (
@@ -149,6 +176,7 @@ export default class Garden extends React.Component {
                             plant={plant}
                             waterings={this.props.waterings}
                             completeWatering={this.props.completeWatering}
+                            deletePlant={this.deletePlant}
                         />
                     ))}
                 </div>
@@ -157,7 +185,7 @@ export default class Garden extends React.Component {
     }
 }
 
-const Plant = ({ plant, waterings, completeWatering }) => {
+const Plant = ({ plant, waterings, completeWatering, deletePlant }) => {
     const needsWatering = waterings.find(watering => {
         return plant.id === watering.plant_id;
     });
@@ -166,7 +194,7 @@ const Plant = ({ plant, waterings, completeWatering }) => {
         <div className="show-plants-area">
             <img
                 className="show-plant-picture"
-                src={plant.picture}
+                src={plant.picture || "/default.png"}
                 alt="plant picture"
             />
             <div className="show-plant-name">{plant.name}</div>
@@ -176,6 +204,7 @@ const Plant = ({ plant, waterings, completeWatering }) => {
                     i'm thirsty!
                 </div>
             )}
+            <button onClick={() => deletePlant(plant.id)}>delete plant</button>
         </div>
     );
 };

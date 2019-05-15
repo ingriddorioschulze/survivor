@@ -47,25 +47,32 @@ export default class GardenList extends React.Component {
 
     render() {
         return (
-            <div className="garden-overview">
-                <div className="create-garden-area">
-                    <Link to="/garden/new">
-                        <img
-                            className="add-icon"
-                            src="/add-icon.png"
-                            alt="add icon"
+            <React.Fragment>
+                {this.state.gardens.length === 0 && (
+                    <div className="title">
+                        you have no garden yet. give me a nice place to live
+                    </div>
+                )}
+                <div className="garden-overview">
+                    <div className="create-garden-area">
+                        <Link to="/garden/new">
+                            <img
+                                className="add-icon"
+                                src="/add-icon.png"
+                                alt="add icon"
+                            />
+                            <div className="garden-add-text">create garden</div>
+                        </Link>
+                    </div>
+                    {this.state.gardens.map(garden => (
+                        <GardenCard
+                            key={garden.id}
+                            garden={garden}
+                            waterings={this.props.waterings}
                         />
-                        <div className="garden-add-text">create garden</div>
-                    </Link>
+                    ))}
                 </div>
-                {this.state.gardens.map(garden => (
-                    <GardenCard
-                        key={garden.id}
-                        garden={garden}
-                        waterings={this.props.waterings}
-                    />
-                ))}
-            </div>
+            </React.Fragment>
         );
     }
 }
