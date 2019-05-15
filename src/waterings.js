@@ -1,13 +1,19 @@
 import React from "react";
 
 const Watering = ({ watering, completeWatering }) => (
-    <React.Fragment>
-        <div>watering</div>
-        <div>{watering.plant_name}</div>
-        <div>{watering.garden_name}</div>
-        {/* <img src={watering.picture} /> */}
-        <button onClick={() => completeWatering(watering.id)}>done!</button>
-    </React.Fragment>
+    <div className="watering-container">
+        <div className="watering-area">
+            <div className="plant-name">{watering.plant_name}</div>
+            <div className="garden-name">{watering.garden_name}</div>
+            <img className="watering-picture" src={watering.picture} />
+            <button
+                className="btn-watering"
+                onClick={() => completeWatering(watering.id)}
+            >
+                you did it!
+            </button>
+        </div>
+    </div>
 );
 
 export default class Waterings extends React.Component {
@@ -17,7 +23,7 @@ export default class Waterings extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="watering-overview">
                 {this.props.waterings.map(watering => (
                     <Watering
                         key={watering.id}

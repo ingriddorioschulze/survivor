@@ -11,14 +11,16 @@ class AddPlant extends React.Component {
     render() {
         return (
             <form className="form" onSubmit={this.submit}>
-                <div>give me a cute name</div>
+                <div className="form-text">give me a cute name</div>
                 <input
                     className="input input-margin"
                     type="text"
                     name="name"
                     placeholder="name"
                 />
-                <div>here you can write everything you want about me</div>
+                <div className="form-text">
+                    here you can write everything you want about me
+                </div>
                 <textarea
                     className="textarea textarea-margin"
                     name="notes"
@@ -26,7 +28,7 @@ class AddPlant extends React.Component {
                     cols="50"
                     rows="4"
                 />
-                <div>upload here a beautiful picture</div>
+                <div className="form-text">upload here my best picture</div>
                 <input
                     className="upload-plant-picture"
                     type="file"
@@ -37,7 +39,9 @@ class AddPlant extends React.Component {
                 <label htmlFor="file">
                     <span className="choose-file">choose a file</span>
                 </label>
-                <div>how often you should remember water me?</div>
+                <div className="form-text">
+                    how often you should remember to water me?
+                </div>
                 <select className="select select-margin" name="xDays">
                     <option value="1">on every 1 day</option>
                     <option value="2">on every 2 days</option>
@@ -168,7 +172,7 @@ const Plant = ({ plant, waterings, completeWatering }) => {
             <br />
             {needsWatering && (
                 <div onClick={() => completeWatering(needsWatering.id)}>
-                    I need water, remember?
+                    i'm thirsty!
                 </div>
             )}
         </div>

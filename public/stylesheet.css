@@ -152,7 +152,7 @@ body {
     border-radius: 8px;
     margin-top: 30px;
     margin-bottom: 30px;
-    background: #f67280;
+    background: #ff8a80;
     padding: 0;
     cursor: pointer;
 }
@@ -165,11 +165,29 @@ body {
     width: 250px;
     margin-top: 30px;
     margin-bottom: 30px;
-    background: #f67280;
+    background: #ff8a80;
     padding: 0;
     cursor: pointer;
     margin-left: 20px;
     text-align: center;
+    border: none;
+}
+
+.btn-add-plant:hover {
+    box-shadow: 0 8px 16px #616161;
+}
+
+.btn-watering {
+    font-size: 15px;
+    font-family: Poiret One;
+    color: #616161;
+    height: 40px;
+    width: 135px;
+    border: 1px solid #616161;
+    border-radius: 8px;
+    background: #ff8a80;
+    padding: 0;
+    cursor: pointer;
 }
 
 ::placeholder {
@@ -185,16 +203,22 @@ body {
     padding: 4px;
 }
 
+.has-waterings:hover {
+    box-shadow: 0 8px 16px #3fc1c9;
+}
+
 /* //GARDEN LIST// */
 
-.garden-overview {
+.garden-overview,
+.watering-container {
     display: flex;
     justify-content: center;
     padding: 20px;
     flex-wrap: wrap;
 }
 .create-garden-area,
-.existing-garden-area {
+.existing-garden-area,
+.watering-area {
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -205,9 +229,18 @@ body {
     justify-content: center;
     align-items: center;
 }
+.create-garden-area:hover,
+.existing-garden-area:hover,
+.watering-area:hover {
+    box-shadow: 0 8px 16px #616161;
+}
 
 .create-garden-area {
     background: #8aae92;
+}
+
+.watering-area {
+    height: 300px;
 }
 
 .number-waterings {
@@ -273,7 +306,8 @@ a {
     margin-right: 20px;
 }
 
-.show-garden-container {
+.show-garden-container,
+.watering-overview {
     display: flex;
     margin: 40px;
     justify-content: center;
@@ -285,10 +319,21 @@ a {
     margin: 30px;
 }
 
-.show-garden-name {
+.show-garden-name,
+.plant-name {
     text-align: center;
     color: #616161;
     font-size: 30px;
+}
+.garden-name {
+    text-align: center;
+    color: #616161;
+    font-size: 15px;
+}
+
+.form-text {
+    font-size: 30px;
+    margin-bottom: 30px;
 }
 
 /* //SHOW PLANTS// */
@@ -297,6 +342,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .show-plants-area {
@@ -311,16 +357,18 @@ a {
     margin: 40px;
 }
 
-.show-plant-picture {
+.show-plants-area:hover {
+    box-shadow: 0 8px 16px #616161;
+}
+
+.show-plant-picture,
+.watering-picture {
     width: 100px;
     height: 100px;
     border-radius: 50px;
     object-fit: cover;
     object-position: center;
     margin: 20px;
-}
-
-.show-plant-name {
 }
 
 /* //ADD PLANT// */
