@@ -345,6 +345,7 @@ a {
 .form-text {
     font-size: 30px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 /* //SHOW PLANTS// */
@@ -493,9 +494,9 @@ a {
 }
 
 .search-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
     object-fit: cover;
     object-position: center;
     margin: 20px;
@@ -529,7 +530,6 @@ p {
 
 .modal-container {
     position: fixed;
-    display: flex;
     top: 0;
     width: 100vw;
     height: 100vh;
@@ -549,6 +549,7 @@ p {
     overflow: scroll;
     padding: 50px;
     position: relative;
+    z-index: 1;
 }
 
 .modal-close {
@@ -577,4 +578,54 @@ main {
     justify-content: center;
     align-items: center;
     color: #f4f9f4;
+}
+
+@media screen and (max-width: 700px) {
+    .header-survivor-logo {
+        width: 150px;
+    }
+
+    .header-search-icon,
+    .header-login-icon,
+    .header-logout-icon,
+    .header-drop-icon {
+        width: 25px;
+        margin: 10px;
+    }
+
+    .copyright {
+        font-size: 12px;
+    }
+
+    main {
+        min-height: calc(100vh - 218px);
+    }
+
+    .search-input {
+        height: 25px;
+        width: 150px;
+        font-size: 10px;
+    }
+
+    .search-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+    }
+
+    .show-garden-container {
+        flex-direction: column;
+    }
+
+    .btn-delete-garden,
+    .btn-add-plant {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .form-text {
+        font-size: 20px;
+    }
 }
