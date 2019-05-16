@@ -94,7 +94,7 @@ exports.getGarden = function(id, user_id) {
 };
 
 exports.getPlantsForGarden = function(garden_id) {
-    const q = `SELECT id, name, picture, notes, time
+    const q = `SELECT id, name, picture, notes, time, water_days
     FROM plants
     WHERE garden_id = $1`;
     const params = [garden_id];
@@ -176,4 +176,27 @@ exports.gardenBelongsToUser = function(garden_id, user_id) {
     return db.query(q, params).then(result => {
         return result.rows[0].count > 0;
     });
+};
+
+exports.updatePlant = function(name, notes, water_days, id, picture) {
+    const params = [name, notes, water_days, id];
+    let setPicture = "";
+    if (picture) {
+        setPicture = ", picture = $5";
+        params.push(picture);
+    }
+    const q = `UPDATE plants SET name = $1, notes = $2, water_days = $3 ${setPicture} WHERE id = $4`;
+    const select = `SELECT water_days FROM plants WHERE id = $1`;
+    return db.query(select, [id]).then(result => {
+        return db.query(q, params).then(() => {
+            return result.rows[0];
+        });
+    });
+};
+
+exports.updateLatestWatering = function(plant_id, time_due) {
+    const q = `UPDATE waterings SET time_due = $1 
+    WHERE plant_id = $2 
+    AND done = false`;
+    return db.query(q, [time_due, plant_id]);
 };

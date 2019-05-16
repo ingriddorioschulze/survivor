@@ -216,7 +216,8 @@ app.post(
                                     id: id,
                                     name: req.body.name,
                                     notes: req.body.notes,
-                                    picture: url
+                                    picture: url,
+                                    water_days: req.body.xDays
                                 });
                             });
                     })
@@ -269,6 +270,51 @@ app.delete("/api/garden/:id", loggedIn, (req, res) => {
         res.sendStatus(204);
     });
 });
+
+app.put(
+    "/api/plant/:id",
+    loggedIn,
+    uploader.single("picture"),
+    (req, res, next) => {
+        Promise.resolve(req.file)
+            .then(file => {
+                if (file) {
+                    return s3.uploadImage(file.path, file.filename);
+                }
+            })
+            .then(url => {
+                return db
+                    .updatePlant(
+                        req.body.name,
+                        req.body.notes,
+                        req.body.xDays,
+                        req.params.id,
+                        url
+                    )
+                    .then(({ water_days }) => {
+                        if (water_days != req.body.xDays) {
+                            const timeDue = moment()
+                                .startOf("day")
+                                .add(req.body.xDays, "days");
+                            return db.updateLatestWatering(
+                                req.params.id,
+                                timeDue.toDate()
+                            );
+                        }
+                    })
+                    .then(() => {
+                        res.json({
+                            id: req.params.id,
+                            name: req.body.name,
+                            notes: req.body.notes,
+                            picture: url,
+                            water_days: req.body.xDays
+                        });
+                    })
+                    .catch(next);
+            });
+    }
+);
 
 ////////////////////EVERYTHING ROUTE////////////////////
 

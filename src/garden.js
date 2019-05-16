@@ -5,12 +5,22 @@ import axios from "./axios";
 class AddPlant extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: "",
-            notes: "",
-            picture: null,
-            xDays: 1
-        };
+        if (props.plant) {
+            this.state = {
+                name: props.plant.name,
+                notes: props.plant.notes,
+                picture: null,
+                xDays: props.plant.water_days
+            };
+        } else {
+            this.state = {
+                name: "",
+                notes: "",
+                picture: null,
+                xDays: 1
+            };
+        }
+
         this.submit = this.submit.bind(this);
     }
 
@@ -83,19 +93,11 @@ class AddPlant extends React.Component {
 
         const formData = new FormData();
 
-        formData.append("gardenId", this.props.gardenId);
         formData.append("name", this.state.name);
         formData.append("notes", this.state.notes);
         formData.append("picture", this.state.picture);
         formData.append("xDays", this.state.xDays);
-
-        axios
-            .post("/api/plants", formData, {
-                headers: {
-                    "content-type": "multipart/form-data"
-                }
-            })
-            .then(({ data }) => this.props.plantAdded(data));
+        this.props.submit(formData);
     }
 }
 
@@ -104,11 +106,13 @@ export default class Garden extends React.Component {
         super(props);
         this.state = {
             garden: null,
-            showAddPlant: false
+            showAddPlant: false,
+            editPlant: null
         };
         this.plantAdded = this.plantAdded.bind(this);
         this.deleteGarden = this.deleteGarden.bind(this);
         this.deletePlant = this.deletePlant.bind(this);
+        this.editPlant = this.editPlant.bind(this);
     }
 
     componentDidMount() {
@@ -119,13 +123,39 @@ export default class Garden extends React.Component {
         });
     }
 
-    plantAdded(plant) {
-        const garden = { ...this.state.garden };
-        garden.plants.unshift(plant);
-        this.setState({
-            garden: garden,
-            showAddPlant: false
+    editPlant(formData, id) {
+        axios.put(`/api/plant/${id}`, formData).then(({ data }) => {
+            const garden = { ...this.state.garden };
+            garden.plants = garden.plants.map(plant => {
+                if (plant.id !== id) {
+                    return plant;
+                } else {
+                    return data;
+                }
+            });
+            // TODO update watering in app.js for this plant//
+
+            this.setState({ garden: garden, editPlant: null });
         });
+    }
+
+    plantAdded(formData) {
+        formData.append("gardenId", this.state.garden.id);
+
+        axios
+            .post("/api/plants", formData, {
+                headers: {
+                    "content-type": "multipart/form-data"
+                }
+            })
+            .then(({ data }) => {
+                const garden = { ...this.state.garden };
+                garden.plants.unshift(data);
+                this.setState({
+                    garden: garden,
+                    showAddPlant: false
+                });
+            });
     }
 
     deleteGarden() {
@@ -154,12 +184,7 @@ export default class Garden extends React.Component {
 
         let addPlant;
         if (this.state.showAddPlant) {
-            addPlant = (
-                <AddPlant
-                    gardenId={this.state.garden.id}
-                    plantAdded={this.plantAdded}
-                />
-            );
+            addPlant = <AddPlant submit={this.plantAdded} />;
         } else {
             addPlant = (
                 <button
@@ -209,15 +234,37 @@ export default class Garden extends React.Component {
                             waterings={this.props.waterings}
                             completeWatering={this.props.completeWatering}
                             deletePlant={this.deletePlant}
+                            showEdit={() => this.setState({ editPlant: plant })}
                         />
                     ))}
                 </div>
+                {this.state.editPlant && (
+                    <div className="modal-container">
+                        <div className="modal-area">
+                            <AddPlant
+                                plant={this.state.editPlant}
+                                submit={formData =>
+                                    this.editPlant(
+                                        formData,
+                                        this.state.editPlant.id
+                                    )
+                                }
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
 }
 
-const Plant = ({ plant, waterings, completeWatering, deletePlant }) => {
+const Plant = ({
+    plant,
+    waterings,
+    completeWatering,
+    deletePlant,
+    showEdit
+}) => {
     const needsWatering = waterings.find(watering => {
         return plant.id === watering.plant_id;
     });
@@ -225,6 +272,7 @@ const Plant = ({ plant, waterings, completeWatering, deletePlant }) => {
     return (
         <div className="show-plants-area">
             <img
+                onClick={showEdit}
                 className="show-plant-picture"
                 src={plant.picture || "/default.png"}
                 alt="plant picture"
