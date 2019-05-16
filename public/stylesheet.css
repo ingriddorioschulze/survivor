@@ -16,6 +16,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    height: 108px;
 }
 
 .header-survivor-logo {
@@ -150,7 +151,7 @@ input:hover {
     width: 250px;
     margin-top: 30px;
     margin-bottom: 30px;
-    background: #ff8a80;
+    background: #8aae92;
     padding: 0;
     cursor: pointer;
     margin-left: 30px;
@@ -563,7 +564,7 @@ p {
 /* //FOOTER// */
 
 main {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 143px);
 }
 
 .copyright {
@@ -593,12 +594,16 @@ main {
         margin: 10px;
     }
 
+    .header {
+        height: 68px;
+    }
+
     .copyright {
         font-size: 12px;
     }
 
     main {
-        min-height: calc(100vh - 218px);
+        min-height: calc(100vh - 103px);
     }
 
     .search-input {

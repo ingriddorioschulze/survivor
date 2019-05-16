@@ -15,4 +15,4 @@ if (
     elem = <App />;
 }
 
-ReactDOM.render(elem, document.querySelector("main"));
+ReactDOM.render(elem, document.querySelector("#survivor"));

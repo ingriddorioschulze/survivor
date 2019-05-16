@@ -5,7 +5,12 @@ import axios from "./axios";
 class AddPlant extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            name: "",
+            notes: "",
+            picture: null,
+            xDays: 1
+        };
         this.submit = this.submit.bind(this);
     }
 
@@ -18,6 +23,8 @@ class AddPlant extends React.Component {
                     type="text"
                     name="name"
                     placeholder="name"
+                    value={this.state.name}
+                    onChange={e => this.setState({ name: e.target.value })}
                 />
                 <div className="form-text">
                     here you can write everything you want about me
@@ -28,6 +35,8 @@ class AddPlant extends React.Component {
                     placeholder="notes"
                     cols="50"
                     rows="4"
+                    value={this.state.notes}
+                    onChange={e => this.setState({ notes: e.target.value })}
                 />
                 <div className="form-text">upload here my best picture</div>
                 <input
@@ -36,14 +45,26 @@ class AddPlant extends React.Component {
                     name="picture"
                     id="file"
                     accept="image/*"
+                    onChange={e =>
+                        this.setState({ picture: e.target.files[0] })
+                    }
                 />
                 <label htmlFor="file">
-                    <span className="choose-file">choose a file</span>
+                    <span className="choose-file">
+                        {this.state.picture
+                            ? this.state.picture.name
+                            : "choose a file"}
+                    </span>
                 </label>
                 <div className="form-text">
                     how often you should remember to water me?
                 </div>
-                <select className="select select-margin" name="xDays">
+                <select
+                    value={this.state.xDays}
+                    className="select select-margin"
+                    name="xDays"
+                    onChange={e => this.setState({ xDays: e.target.value })}
+                >
                     <option value="1">every 1 day</option>
                     <option value="2">every 2 days</option>
                     <option value="3">every 3 days</option>
@@ -63,10 +84,10 @@ class AddPlant extends React.Component {
         const formData = new FormData();
 
         formData.append("gardenId", this.props.gardenId);
-        formData.append("name", e.target.name.value);
-        formData.append("notes", e.target.notes.value);
-        formData.append("picture", e.target.picture.files[0]);
-        formData.append("xDays", e.target.xDays.value);
+        formData.append("name", this.state.name);
+        formData.append("notes", this.state.notes);
+        formData.append("picture", this.state.picture);
+        formData.append("xDays", this.state.xDays);
 
         axios
             .post("/api/plants", formData, {
