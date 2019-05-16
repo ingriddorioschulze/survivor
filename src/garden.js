@@ -159,18 +159,20 @@ export default class Garden extends React.Component {
             <div className="show-garden">
                 <div className="show-garden-name">{this.state.garden.name}</div>
                 <div className="show-garden-container">
-                    <button
-                        className="btn-delete-garden"
-                        onClick={this.deleteGarden}
-                    >
-                        <img
-                            className="delete-icon"
-                            src="/delete-icon.png"
-                            alt="delete icon"
-                        />
-                        <br />
-                        delete garden
-                    </button>
+                    {!this.state.showAddPlant && (
+                        <button
+                            className="btn-delete-garden"
+                            onClick={this.deleteGarden}
+                        >
+                            <img
+                                className="delete-icon"
+                                src="/delete-icon.png"
+                                alt="delete icon"
+                            />
+                            <br />
+                            delete garden
+                        </button>
+                    )}
                     {addPlant}
                 </div>
                 {this.state.garden.plants.length === 0 && (
