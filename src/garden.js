@@ -44,13 +44,13 @@ class AddPlant extends React.Component {
                     how often you should remember to water me?
                 </div>
                 <select className="select select-margin" name="xDays">
-                    <option value="1">on every 1 day</option>
-                    <option value="2">on every 2 days</option>
-                    <option value="3">on every 3 days</option>
-                    <option value="4">on every 4 days</option>
-                    <option value="5">on every 5 days</option>
-                    <option value="6">on every 6 days</option>
-                    <option value="7">on every 7 days</option>
+                    <option value="1">every 1 day</option>
+                    <option value="2">every 2 days</option>
+                    <option value="3">every 3 days</option>
+                    <option value="4">every 4 days</option>
+                    <option value="5">every 5 days</option>
+                    <option value="6">every 6 days</option>
+                    <option value="7">every 7 days</option>
                 </select>
                 <button className="btn">good job, human!</button>
             </form>
@@ -157,18 +157,27 @@ export default class Garden extends React.Component {
         }
         return (
             <div className="show-garden">
+                <div className="show-garden-name">{this.state.garden.name}</div>
                 <div className="show-garden-container">
-                    <div className="show-garden-name">
-                        {this.state.garden.name}
-                    </div>
-                    <button onClick={this.deleteGarden}>delete garden</button>
+                    <button
+                        className="btn-delete-garden"
+                        onClick={this.deleteGarden}
+                    >
+                        <img
+                            className="delete-icon"
+                            src="/delete-icon.png"
+                            alt="delete icon"
+                        />
+                        <br />
+                        delete garden
+                    </button>
+                    {addPlant}
                 </div>
                 {this.state.garden.plants.length === 0 && (
                     <div className="title">
-                        you don't have any plants to call your family.
+                        you still have no plants to call your own family.
                     </div>
                 )}
-                {addPlant}
                 <div className="show-plants-container">
                     {this.state.garden.plants.map(plant => (
                         <Plant
@@ -200,11 +209,16 @@ const Plant = ({ plant, waterings, completeWatering, deletePlant }) => {
             <div className="show-plant-name">{plant.name}</div>
             <br />
             {needsWatering && (
-                <div onClick={() => completeWatering(needsWatering.id)}>
-                    i'm thirsty!
+                <div
+                    className="show-watering-state"
+                    onClick={() => completeWatering(needsWatering.id)}
+                >
+                    I'M THIRSTY!
                 </div>
             )}
-            <button onClick={() => deletePlant(plant.id)}>delete plant</button>
+            <button className="btn" onClick={() => deletePlant(plant.id)}>
+                delete plant
+            </button>
         </div>
     );
 };

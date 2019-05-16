@@ -15,24 +15,26 @@ function debouncer(fn, thisarg, time) {
 const Modal = ({ plant, close }) => (
     <div className="modal-container">
         <div className="modal-area">
-            <button onClick={close}>close</button>
-            <img className="search-image" src={plant.picture} />
-            <span className="search-name">{plant.name}</span>
-            <h4>description</h4>
+            <div className="modal-close" onClick={close}>
+                &times;
+            </div>
+            <img className="search-image-modal" src={plant.picture} />
+            <span className="search-name-modal">{plant.name}</span>
+            <h4>Description</h4>
             <p>{plant.description}</p>
-            <h4>light</h4>
+            <h4>Light</h4>
             <p>{plant.light}</p>
-            <h4>water</h4>
+            <h4>Water</h4>
             <p>{plant.water}</p>
-            <h4>fertilizer</h4>
+            <h4>Fertilizer</h4>
             <p>{plant.fertilizer}</p>
-            <h4>temperature</h4>
+            <h4>Temperature</h4>
             <p>{plant.temperature}</p>
-            <h4>humidity</h4>
+            <h4>Humidity</h4>
             <p>{plant.humidity}</p>
-            <h4>soil</h4>
+            <h4>Soil</h4>
             <p>{plant.soil}</p>
-            <h4>pot size</h4>
+            <h4>Pot Size</h4>
             <p>{plant.pot_size}</p>
         </div>
     </div>
@@ -72,38 +74,41 @@ export default class Search extends React.Component {
 
     render() {
         return (
-            <div className="search welcome-search">
-                <input
-                    onChange={e => this.search(e.target.value)}
-                    type="text"
-                    className="search-input"
-                    placeholder="search"
-                />
-                {this.state.searchResults.map(result => {
-                    return (
-                        <div
-                            onClick={() => this.openModal(result)}
-                            className="search-result"
-                            key={result.id}
-                        >
-                            <img
-                                className="search-image"
-                                src={result.picture}
-                            />
-                            <span className="search-name">
-                                {result.name}
-                                {/* {result.scientific_name} */}
-                            </span>
-                        </div>
-                    );
-                })}
-                {this.state.selectedPlant && (
-                    <Modal
-                        plant={this.state.selectedPlant}
-                        close={this.closeModal}
+            <React.Fragment>
+                <div className="search">
+                    <input
+                        onChange={e => this.search(e.target.value)}
+                        type="text"
+                        className="search-input"
+                        placeholder="search"
                     />
-                )}
-            </div>
+                </div>
+                <div className="show-results">
+                    {this.state.searchResults.map(result => {
+                        return (
+                            <div
+                                onClick={() => this.openModal(result)}
+                                className="search-result"
+                                key={result.id}
+                            >
+                                <img
+                                    className="search-image"
+                                    src={result.picture}
+                                />
+                                <span className="search-name">
+                                    {result.name}
+                                </span>
+                            </div>
+                        );
+                    })}
+                    {this.state.selectedPlant && (
+                        <Modal
+                            plant={this.state.selectedPlant}
+                            close={this.closeModal}
+                        />
+                    )}
+                </div>
+            </React.Fragment>
         );
     }
 }

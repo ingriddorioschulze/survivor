@@ -153,7 +153,7 @@ input:hover {
     background: #ff8a80;
     padding: 0;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 30px;
     text-align: center;
     border: none;
 }
@@ -173,6 +173,7 @@ input:hover {
     background: #ff8a80;
     padding: 0;
     cursor: pointer;
+    margin-top: 20px;
 }
 .btn-watering:hover {
     border: 2px solid #616161;
@@ -193,6 +194,26 @@ input:hover {
 
 .has-waterings:hover {
     box-shadow: 0 8px 16px #3fc1c9;
+}
+
+.btn-delete-garden {
+    font-size: 15px;
+    font-family: Poiret One;
+    color: #f4f9f4;
+    height: 250px;
+    width: 250px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: #ff8a80;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 30px;
+    text-align: center;
+    border: none;
+}
+
+.btn-delete-garden:hover {
+    box-shadow: 0 8px 16px #616161;
 }
 
 /* //GARDEN LIST// */
@@ -228,7 +249,7 @@ input:hover {
 }
 
 .watering-area {
-    height: 300px;
+    height: 350px;
 }
 
 .number-waterings {
@@ -240,7 +261,8 @@ input:hover {
 
 .add-icon,
 .garden-icon,
-.add-garden-icon {
+.add-garden-icon,
+.delete-icon {
     width: 80px;
     margin: 30px;
 }
@@ -317,6 +339,7 @@ a {
     text-align: center;
     color: #616161;
     font-size: 15px;
+    margin: 20px;
 }
 
 .form-text {
@@ -331,15 +354,16 @@ a {
     justify-content: center;
     align-items: center;
     margin-bottom: 40px;
+    flex-wrap: wrap;
 }
 
 .show-plants-area {
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 20px;
     background: #c4e3cb;
     width: 250px;
-    height: 250px;
+    height: 350px;
     justify-content: center;
     align-items: center;
     margin: 40px;
@@ -356,7 +380,15 @@ a {
     border-radius: 50px;
     object-fit: cover;
     object-position: center;
-    margin: 20px;
+}
+
+.show-plant-name {
+    font-size: 20px;
+    padding: 15px;
+}
+
+.show-watering-state {
+    font-size: 15px;
 }
 
 /* //ADD PLANT// */
@@ -433,31 +465,71 @@ a {
     position: relative;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
 
 .search-input {
     height: 40px;
-    width: 248px;
+    width: 400px;
     background: transparent;
     border: 1px solid #616161;
     font-size: 18px;
 }
 
-.welcome-search {
-    margin-top: 60px;
+.show-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
 .search-image {
     width: 50px;
     height: 50px;
-    border-radius: 50px;
+    border-radius: 25px;
     object-fit: cover;
     object-position: center;
     margin: 20px;
 }
 
+.search-image-modal {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    object-fit: cover;
+    object-position: center;
+    margin: 20px;
+}
+
+.search-name-modal {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
 .modal-container {
     position: fixed;
+    display: flex;
     top: 0;
     width: 100vw;
     height: 100vh;
@@ -468,10 +540,23 @@ a {
 }
 
 .modal-area {
-    background: #8aae92;
-    width: 200px;
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    height: 80%;
+    background: #c4e3cb;
+    align-items: center;
     overflow: scroll;
+    padding: 50px;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    right: 35px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 60px;
 }
 
 /* //FOOTER// */
