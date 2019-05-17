@@ -27,7 +27,9 @@ class AddPlant extends React.Component {
     render() {
         return (
             <form className="form" onSubmit={this.submit}>
-                <div className="form-text">give me a cute name</div>
+                <div className="form-text form-text-modal">
+                    give me a cute name
+                </div>
                 <input
                     className="input input-margin"
                     type="text"
@@ -36,7 +38,7 @@ class AddPlant extends React.Component {
                     value={this.state.name}
                     onChange={e => this.setState({ name: e.target.value })}
                 />
-                <div className="form-text">
+                <div className="form-text form-text-modal">
                     here you can write everything you want about me
                 </div>
                 <textarea
@@ -48,7 +50,9 @@ class AddPlant extends React.Component {
                     value={this.state.notes}
                     onChange={e => this.setState({ notes: e.target.value })}
                 />
-                <div className="form-text">upload here my best picture</div>
+                <div className="form-text form-text-modal">
+                    upload here my best picture
+                </div>
                 <input
                     className="upload-plant-picture"
                     type="file"
@@ -66,7 +70,7 @@ class AddPlant extends React.Component {
                             : "choose a file"}
                     </span>
                 </label>
-                <div className="form-text">
+                <div className="form-text form-text-modal">
                     how often you should remember to water me?
                 </div>
                 <select
@@ -113,6 +117,7 @@ export default class Garden extends React.Component {
         this.deleteGarden = this.deleteGarden.bind(this);
         this.deletePlant = this.deletePlant.bind(this);
         this.editPlant = this.editPlant.bind(this);
+        this.closeModal = this.closeEditModal.bind(this);
     }
 
     componentDidMount() {
@@ -137,6 +142,10 @@ export default class Garden extends React.Component {
 
             this.setState({ garden: garden, editPlant: null });
         });
+    }
+
+    closeEditModal() {
+        this.setState({ editPlant: null });
     }
 
     plantAdded(formData) {
@@ -241,6 +250,14 @@ export default class Garden extends React.Component {
                 {this.state.editPlant && (
                     <div className="modal-container">
                         <div className="modal-area">
+                            <div
+                                className="modal-close"
+                                onClick={this.closeModal}
+                            >
+                                &times;
+                            </div>
+                            <div className="title">edit me</div>
+                            <br />
                             <AddPlant
                                 plant={this.state.editPlant}
                                 submit={formData =>

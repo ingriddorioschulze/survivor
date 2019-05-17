@@ -323,6 +323,7 @@ a {
     margin: 40px;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .show-garden-icon {
@@ -346,6 +347,12 @@ a {
 .form-text {
     font-size: 30px;
     margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-text-modal {
+    font-size: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -413,8 +420,10 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     background: transparent;
-    padding: 11px 95px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .upload-plant-picture + label {
@@ -632,5 +641,18 @@ main {
 
     .form-text {
         font-size: 20px;
+    }
+
+    .modal-close {
+        right: 15px;
+        top: -3px;
+    }
+    .input,
+    .textarea {
+        width: 170px;
+    }
+
+    .upload-plant-picture + label {
+        width: 70%;
     }
 }
