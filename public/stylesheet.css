@@ -9,8 +9,6 @@ body {
     color: #616161;
 }
 
-/* //HEADER // */
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -30,8 +28,6 @@ body {
     width: 35px;
     margin: 25px;
 }
-
-/* //WELCOME // */
 
 .welcome-container {
     display: flex;
@@ -76,10 +72,6 @@ body {
         border-color: #616161;
     }
 }
-
-/* // APP // */
-
-/* // LOGIN AND REGISTRATION // */
 
 .register-area,
 .login-area {
@@ -217,8 +209,6 @@ input:hover {
     box-shadow: 0 8px 16px #616161;
 }
 
-/* //GARDEN LIST// */
-
 .garden-overview,
 .watering-container {
     display: flex;
@@ -281,8 +271,6 @@ a {
     font-size: 15px;
 }
 
-/* //CREATE GARDEN// */
-
 .garden-container {
     display: flex;
     flex-direction: column;
@@ -295,8 +283,6 @@ a {
     font-size: 30px;
     text-align: center;
 }
-
-/* //SHOW GARDEN// */
 
 .show-garden {
     display: flex;
@@ -356,8 +342,6 @@ a {
     text-align: center;
 }
 
-/* //SHOW PLANTS// */
-
 .show-plants-container {
     display: flex;
     justify-content: center;
@@ -399,8 +383,6 @@ a {
 .show-watering-state {
     font-size: 15px;
 }
-
-/* //ADD PLANT// */
 
 .upload-plant-picture {
     height: 0.1px;
@@ -467,8 +449,6 @@ a {
 .select-margin {
     margin-bottom: 30px;
 }
-
-/* //SEARCH// */
 
 .search {
     display: flex;
@@ -569,8 +549,6 @@ p {
     cursor: pointer;
     font-size: 60px;
 }
-
-/* //FOOTER// */
 
 main {
     min-height: calc(100vh - 143px);

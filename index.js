@@ -9,7 +9,6 @@ const password = require("./password");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const moment = require("moment");
-const trefle = require("./trefle");
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -52,8 +51,6 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-////////////////////CSURF////////////////////
-
 app.use(csurf());
 
 app.use(function(req, res, next) {
@@ -64,8 +61,6 @@ app.use(function(req, res, next) {
 app.use(express.static("./public"));
 app.use(express.json());
 
-////////////////////WELCOME ROUTE////////////////////
-
 app.get(["/welcome", "/register", "/login"], (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
@@ -73,8 +68,6 @@ app.get(["/welcome", "/register", "/login"], (req, res) => {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
-////////////////////REGISTER ROUTE////////////////////
 
 app.post("/api/register", (req, res, next) => {
     password
@@ -96,7 +89,6 @@ app.post("/api/register", (req, res, next) => {
         })
         .catch(next);
 });
-////////////////////LOGIN ROUTE////////////////////
 
 app.post("/api/login", (req, res) => {
     db.getUser(req.body.email).then(user => {
@@ -118,8 +110,6 @@ app.post("/api/login", (req, res) => {
     });
 });
 
-////////////////////LOGOUT ROUTE////////////////////
-
 app.post("/api/logout", (req, res) => {
     req.session = null;
     res.redirect("/register");
@@ -133,25 +123,13 @@ function loggedIn(req, res, next) {
     }
 }
 
-// // ////////////////////SEARCH W/ API ROUTE////////////////////
-
-// app.get("/api/search", (req, res) => {
-//     trefle.search(req.query.term).then(results => res.json(results));
-// });
-
-// ////////////////////SEARCH ROUTE////////////////////
-
 app.get("/api/search", (req, res) => {
     db.search(req.query.term).then(results => res.json(results));
 });
 
-// ////////////////////GET GARDENS ROUTE////////////////////
-
 app.get("/api/gardens", loggedIn, (req, res) => {
     db.getGardens(req.session.userId).then(gardens => res.json(gardens));
 });
-
-// ////////////////////SHOW GARDEN ROUTE////////////////////
 
 app.get("/api/garden/:id", loggedIn, (req, res) => {
     db.getGarden(req.params.id, req.session.userId).then(garden => {
@@ -165,8 +143,6 @@ app.get("/api/garden/:id", loggedIn, (req, res) => {
     });
 });
 
-// ////////////////////CREATE GARDEN ROUTE////////////////////
-
 app.post("/api/garden", loggedIn, (req, res, next) => {
     return db
         .createGarden(req.body.name, req.session.userId, new Date())
@@ -175,8 +151,6 @@ app.post("/api/garden", loggedIn, (req, res, next) => {
         })
         .catch(next);
 });
-
-// ////////////////////CREATE PLANTS ROUTE////////////////////
 
 app.post(
     "/api/plants",
@@ -233,15 +207,11 @@ app.post(
     }
 );
 
-// ////////////////////NOTIFICATION ROUTE////////////////////
-
 app.get("/api/waterings", loggedIn, (req, res) => {
     db.getWaterings(req.session.userId).then(waterings => {
         res.json(waterings);
     });
 });
-
-// ////////////////////COMPLETE WATERING ROUTE////////////////////
 
 app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
     db.completeWatering(req.params.id).then(completeWatering => {
@@ -256,15 +226,12 @@ app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
     });
 });
 
-// ////////////////////DELETE PLANT ROUTE////////////////////
-
 app.delete("/api/plant/:id", loggedIn, (req, res) => {
     db.deletePlant(req.params.id).then(() => {
         res.sendStatus(204);
     });
 });
 
-// ////////////////////DELETE GARDEN ROUTE////////////////////
 app.delete("/api/garden/:id", loggedIn, (req, res) => {
     db.deleteGarden(req.params.id).then(() => {
         res.sendStatus(204);
@@ -315,8 +282,6 @@ app.put(
             });
     }
 );
-
-////////////////////EVERYTHING ROUTE////////////////////
 
 app.get("*", (req, res) => {
     if (!req.session.userId) {

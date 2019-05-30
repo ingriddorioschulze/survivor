@@ -70,7 +70,6 @@ exports.createPlant = function(
     });
 };
 
-//all the gardens//
 exports.getGardens = function(user_id) {
     const q = `SELECT id, name, time
     FROM garden
@@ -81,7 +80,6 @@ exports.getGardens = function(user_id) {
     });
 };
 
-//one garden//
 exports.getGarden = function(id, user_id) {
     const q = `SELECT id, name, time
     FROM garden 
