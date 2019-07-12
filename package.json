@@ -1,71 +1,72 @@
 {
-    "name": "spiced-social-network",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "build": "node build.js",
-        "start": "node index.js",
-        "test": "jest"
-    },
-    "engines": {
-        "node": "10.15.1"
-    },
-    "dependencies": {
-        "@babel/cli": "^7.4.3",
-        "@babel/core": "^7.4.3",
-        "@babel/polyfill": "^7.4.3",
-        "@babel/preset-env": "^7.4.3",
-        "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19.0",
-        "babel-loader": "^8.0.5",
-        "bcryptjs": "^2.4.3",
-        "body-parser": "^1.15.2",
-        "compression": "^1.7.0",
-        "cookie-parser": "^1.4.3",
-        "cookie-session": "^2.0.0-alpha.2",
-        "csurf": "^1.9.0",
-        "enzyme": "^3.8.0",
-        "enzyme-adapter-react-16": "^1.7.1",
-        "eslint": "^4.19.1",
-        "eslint-plugin-react": "^7.12.4",
-        "express": "^4.14.0",
-        "http-proxy-middleware": "^0.19.1",
-        "jest": "^24.7.1",
-        "knox-s3": "^0.9.5",
-        "moment": "^2.24.0",
-        "multer": "^1.3.0",
-        "popmotion": "^8.6.9",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
-        "react-redux": "^5.0.5",
-        "react-router": "^4.2.0",
-        "react-router-dom": "^4.2.2",
-        "react-test-renderer": "^16.6.0",
-        "redux": "^3.7.1",
-        "redux-devtools-extension": "^2.13.2",
-        "redux-promise": "^0.5.3",
-        "socket.io": "^2.2.0",
-        "spiced-pg": "^1.0.0",
-        "uglifyjs-webpack-plugin": "^2.1.2",
-        "uid-safe": "^2.1.4",
-        "webpack": "^4.29.6",
-        "webpack-dev-middleware": "^1.8.4"
-    },
-    "jest": {
-        "setupFiles": [
-            "./jest.js"
-        ]
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ingriddorioschulze/tabasco-final-project.git"
-    },
-    "bugs": {
-        "url": "https://github.com/ingriddorioschulze/tabasco-final-project/issues"
-    },
-    "homepage": "https://github.com/ingriddorioschulze/tabasco-final-project#readme",
-    "description": ""
+  "name": "spiced-social-network",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "engines": {
+    "node": "10.15.1"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "axios": "^0.19.0",
+    "babel-loader": "^8.0.5",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.15.2",
+    "compression": "^1.7.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "csurf": "^1.9.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.12.4",
+    "express": "^4.14.0",
+    "http-proxy-middleware": "^0.19.1",
+    "jest": "^24.7.1",
+    "knox-s3": "^0.9.5",
+    "moment": "^2.24.0",
+    "multer": "^1.3.0",
+    "popmotion": "^8.6.9",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.6.0",
+    "redux": "^3.7.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-promise": "^0.5.3",
+    "socket.io": "^2.2.0",
+    "spiced-pg": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "uid-safe": "^2.1.4",
+    "webpack": "^4.29.6",
+    "webpack-dev-middleware": "^1.8.4"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jest.js"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingriddorioschulze/tabasco-final-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ingriddorioschulze/tabasco-final-project/issues"
+  },
+  "homepage": "https://github.com/ingriddorioschulze/tabasco-final-project#readme",
+  "description": "Survivor was created thinking of my own needs. I love plants. I do not know how to take good care of them. I water the plants too much or I do not water them at all. I place them in the sun when they really need to be in the shade. I always think the soil will be eternally good and I will not need to change it. After all these bad experiences some of my plants die and I feel terrible for not being able to take care of a plant. Survivor was thought to be like a bullet journal for plants. You write down all the information you have and you want to be there, this makes it easier to remember and track some important events about your plants. It's an extra memory.",
+  "devDependencies": {}
 }
