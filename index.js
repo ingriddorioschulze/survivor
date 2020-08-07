@@ -9,28 +9,29 @@ const password = require("./password");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const moment = require("moment");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const diskStorage = multer.diskStorage({
-    destination: function(req, file, callback) {
+    destination: function (req, file, callback) {
         callback(null, __dirname + "/uploads");
     },
-    filename: function(req, file, callback) {
-        uidSafe(24).then(function(uid) {
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
             callback(null, uid + path.extname(file.originalname));
         });
-    }
+    },
 });
 
 const uploader = multer({
     storage: diskStorage,
     limits: {
-        fileSize: 2097152
-    }
+        fileSize: 2097152,
+    },
 });
 
 const cookieSessionMiddleware = cookieSession({
     maxAge: 1000 * 60 * 60 * 24 * 24,
-    secret: `Iamasurvivor!Iamgonnamakeit`
+    secret: `Iamasurvivor!Iamgonnamakeit`,
 });
 
 const app = express();
@@ -43,8 +44,8 @@ app.use(compression());
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
-        require("http-proxy-middleware")({
-            target: "http://localhost:8081/"
+        createProxyMiddleware({
+            target: "http://localhost:8081/",
         })
     );
 } else {
@@ -53,7 +54,7 @@ if (process.env.NODE_ENV != "production") {
 
 app.use(csurf());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
 });
@@ -72,7 +73,7 @@ app.get(["/welcome", "/register", "/login"], (req, res) => {
 app.post("/api/register", (req, res, next) => {
     password
         .hashPassword(req.body.password)
-        .then(hashedPassword => {
+        .then((hashedPassword) => {
             return db.registerUser(
                 req.body.firstname,
                 req.body.lastname,
@@ -83,7 +84,7 @@ app.post("/api/register", (req, res, next) => {
                 new Date()
             );
         })
-        .then(userId => {
+        .then((userId) => {
             req.session.userId = userId;
             res.redirect("/");
         })
@@ -91,14 +92,14 @@ app.post("/api/register", (req, res, next) => {
 });
 
 app.post("/api/login", (req, res) => {
-    db.getUser(req.body.email).then(user => {
+    db.getUser(req.body.email).then((user) => {
         if (user == null) {
             return res.status(400).json({ error: "user not found" });
         }
 
         password
             .checkPassword(req.body.password, user.password)
-            .then(doesMatch => {
+            .then((doesMatch) => {
                 if (doesMatch == true) {
                     req.session.userId = user.id;
 
@@ -124,19 +125,19 @@ function loggedIn(req, res, next) {
 }
 
 app.get("/api/search", (req, res) => {
-    db.search(req.query.term).then(results => res.json(results));
+    db.search(req.query.term).then((results) => res.json(results));
 });
 
 app.get("/api/gardens", loggedIn, (req, res) => {
-    db.getGardens(req.session.userId).then(gardens => res.json(gardens));
+    db.getGardens(req.session.userId).then((gardens) => res.json(gardens));
 });
 
 app.get("/api/garden/:id", loggedIn, (req, res) => {
-    db.getGarden(req.params.id, req.session.userId).then(garden => {
+    db.getGarden(req.params.id, req.session.userId).then((garden) => {
         if (!garden) {
             return res.sendStatus(404);
         } else {
-            db.getPlantsForGarden(req.params.id).then(plants =>
+            db.getPlantsForGarden(req.params.id).then((plants) =>
                 res.json({ ...garden, plants: plants })
             );
         }
@@ -146,7 +147,7 @@ app.get("/api/garden/:id", loggedIn, (req, res) => {
 app.post("/api/garden", loggedIn, (req, res, next) => {
     return db
         .createGarden(req.body.name, req.session.userId, new Date())
-        .then(id => {
+        .then((id) => {
             res.json({ id: id });
         })
         .catch(next);
@@ -158,7 +159,7 @@ app.post(
     uploader.single("picture"),
     (req, res, next) => {
         db.gardenBelongsToUser(req.body.gardenId, req.session.userId)
-            .then(gardenBelongs => {
+            .then((gardenBelongs) => {
                 if (!gardenBelongs) {
                     throw new Error("NOT_ALLOWED");
                 }
@@ -168,7 +169,7 @@ app.post(
                     return s3.uploadImage(req.file.path, req.file.filename);
                 }
             })
-            .then(url => {
+            .then((url) => {
                 return db
                     .createPlant(
                         req.session.userId,
@@ -179,7 +180,7 @@ app.post(
                         req.body.xDays,
                         new Date()
                     )
-                    .then(id => {
+                    .then((id) => {
                         const timeDue = moment()
                             .startOf("day")
                             .add(req.body.xDays, "days");
@@ -191,13 +192,13 @@ app.post(
                                     name: req.body.name,
                                     notes: req.body.notes,
                                     picture: url,
-                                    water_days: req.body.xDays
+                                    water_days: req.body.xDays,
                                 });
                             });
                     })
                     .catch(next);
             })
-            .catch(e => {
+            .catch((e) => {
                 if (e.message === "NOT_ALLOWED") {
                     res.sendStatus(400);
                 } else {
@@ -208,13 +209,13 @@ app.post(
 );
 
 app.get("/api/waterings", loggedIn, (req, res) => {
-    db.getWaterings(req.session.userId).then(waterings => {
+    db.getWaterings(req.session.userId).then((waterings) => {
         res.json(waterings);
     });
 });
 
 app.post("/api/watering/:id/complete", loggedIn, (req, res) => {
-    db.completeWatering(req.params.id).then(completeWatering => {
+    db.completeWatering(req.params.id).then((completeWatering) => {
         const timeDue = moment()
             .startOf("day")
             .add(completeWatering.water_days, "days");
@@ -244,12 +245,12 @@ app.put(
     uploader.single("picture"),
     (req, res, next) => {
         Promise.resolve(req.file)
-            .then(file => {
+            .then((file) => {
                 if (file) {
                     return s3.uploadImage(file.path, file.filename);
                 }
             })
-            .then(url => {
+            .then((url) => {
                 return db
                     .updatePlant(
                         req.body.name,
@@ -275,7 +276,7 @@ app.put(
                             name: req.body.name,
                             notes: req.body.notes,
                             picture: url,
-                            water_days: req.body.xDays
+                            water_days: req.body.xDays,
                         });
                     })
                     .catch(next);
