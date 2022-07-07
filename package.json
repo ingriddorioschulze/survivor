@@ -32,7 +32,7 @@
     "http-proxy-middleware": "^1.0.5",
     "jest": "^26.2.2",
     "knox-s3": "^0.9.5",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "multer": "^1.4.2",
     "popmotion": "^8.7.3",
     "react": "^16.13.1",
