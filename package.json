@@ -28,7 +28,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^7.6.0",
     "eslint-plugin-react": "^7.20.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http-proxy-middleware": "^1.0.5",
     "jest": "^26.2.2",
     "knox-s3": "^0.9.5",
